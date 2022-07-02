@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/nav_clients"
-        android:name="ordinary.frostsreport.ui.gallery.GalleryFragment"
+        android:name="ordinary.frostsreport.ui.addOrder.GalleryFragment"
         android:label="@string/menu_clients"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_add_order" />
 
     <fragment
         android:id="@+id/nav_products"
