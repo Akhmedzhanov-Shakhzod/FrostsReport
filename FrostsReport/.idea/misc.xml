@@ -3,7 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/layout/activity_main.xml" value="0.10989583333333333" />
         <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/layout/content_main.xml" value="0.25" />
+        <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/layout/nav_header_main.xml" value="0.10989583333333333" />
+        <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/menu/activity_main_drawer.xml" value="0.25" />
+        <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/menu/main.xml" value="0.10989583333333333" />
       </map>
     </option>
   </component>
