@@ -1,4 +1,4 @@
-package ordinary.frostsreport.ui.slideshow
+package ordinary.frostsreport.ui.products
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import ordinary.frostsreport.databinding.FragmentSlideshowBinding
+import ordinary.frostsreport.databinding.FragmentProductsBinding
 
-class SlideshowFragment : Fragment() {
+class ProductsFragment : Fragment() {
 
-    private var _binding: FragmentSlideshowBinding? = null
+    private var _binding: FragmentProductsBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -23,9 +23,9 @@ class SlideshowFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val slideshowViewModel =
-            ViewModelProvider(this).get(SlideshowViewModel::class.java)
+            ViewModelProvider(this).get(ProductsViewModel::class.java)
 
-        _binding = FragmentSlideshowBinding.inflate(inflater, container, false)
+        _binding = FragmentProductsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val textView: TextView = binding.textSlideshow
