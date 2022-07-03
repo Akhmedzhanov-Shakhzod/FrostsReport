@@ -7,15 +7,15 @@
 
     <fragment
         android:id="@+id/nav_add_order"
-        android:name="ordinary.frostsreport.ui.home.HomeFragment"
+        android:name="ordinary.frostsreport.ui.addOrder.AddOrderFragment"
         android:label="@string/menu_add_order"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_add_order" />
 
     <fragment
         android:id="@+id/nav_clients"
-        android:name="ordinary.frostsreport.ui.addOrder.GalleryFragment"
+        android:name="ordinary.frostsreport.ui.clients.GalleryFragment"
         android:label="@string/menu_clients"
-        tools:layout="@layout/fragment_add_order" />
+        tools:layout="@layout/fragment_clients" />
 
     <fragment
         android:id="@+id/nav_products"
