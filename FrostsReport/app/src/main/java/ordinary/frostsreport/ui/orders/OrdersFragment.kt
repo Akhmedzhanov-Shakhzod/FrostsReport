@@ -1,4 +1,4 @@
-package ordinary.frostsreport.ui.addOrder
+package ordinary.frostsreport.ui.orders
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import ordinary.frostsreport.databinding.FragmentAddOrderBinding
+import ordinary.frostsreport.databinding.FragmentOrdersBinding
 
-class AddOrderFragment : Fragment() {
+class OrdersFragment : Fragment() {
 
-    private var _binding: FragmentAddOrderBinding? = null
+    private var _binding: FragmentOrdersBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -22,14 +22,14 @@ class AddOrderFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(AddOrderViewModel::class.java)
+        val ordersViewModel =
+            ViewModelProvider(this).get(OrdersViewModel::class.java)
 
-        _binding = FragmentAddOrderBinding.inflate(inflater, container, false)
+        _binding = FragmentOrdersBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textAddOrder
-        homeViewModel.text.observe(viewLifecycleOwner) {
+        val textView: TextView = binding.textOrders
+        ordersViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
         return root
