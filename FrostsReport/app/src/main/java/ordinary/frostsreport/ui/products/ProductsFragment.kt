@@ -28,7 +28,7 @@ class ProductsFragment : Fragment() {
         _binding = FragmentProductsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textSlideshow
+        val textView: TextView = binding.textProducts
         slideshowViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }

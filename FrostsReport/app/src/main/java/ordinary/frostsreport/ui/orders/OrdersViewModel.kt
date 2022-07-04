@@ -1,14 +1,13 @@
-package ordinary.frostsreport.ui.addOrder
+package ordinary.frostsreport.ui.orders
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class AddOrderViewModel : ViewModel() {
+class OrdersViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-
-        value = "This is add order Fragment"
+        value = "This is orders Fragment"
     }
     val text: LiveData<String> = _text
 }
