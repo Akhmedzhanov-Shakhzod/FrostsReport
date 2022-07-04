@@ -8,6 +8,8 @@
     <string name="action_settings">Настройки</string>
 
     <string name="menu_add_order">Принять заказ</string>
+    <string name="menu_add_client">Добавить клиента</string>
+    <string name="menu_add_product">Добавить продукт</string>
     <string name="menu_clients">Клиенты</string>
     <string name="menu_products">Продукты</string>
     <string name="menu_orders">Заказы</string>

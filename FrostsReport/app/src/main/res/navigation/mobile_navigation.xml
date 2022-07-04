@@ -15,16 +15,38 @@
         android:id="@+id/nav_clients"
         android:name="ordinary.frostsreport.ui.clients.ClientsFragment"
         android:label="@string/menu_clients"
-        tools:layout="@layout/fragment_clients" />
+        tools:layout="@layout/fragment_clients" >
+        <action
+            android:id="@+id/action_nav_clients_to_addClientFragment"
+            app:destination="@id/nav_add_client" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_products"
         android:name="ordinary.frostsreport.ui.products.ProductsFragment"
         android:label="@string/menu_products"
-        tools:layout="@layout/fragment_products" />
+        tools:layout="@layout/fragment_products" >
+        <action
+            android:id="@+id/action_nav_products_to_addProductFragment"
+            app:destination="@id/nav_add_product" />
+    </fragment>
     <fragment
         android:id="@+id/nav_orders"
         android:name="ordinary.frostsreport.ui.orders.OrdersFragment"
         android:label="@string/menu_orders"
-        tools:layout="@layout/fragment_orders" />
+        tools:layout="@layout/fragment_orders" >
+        <action
+            android:id="@+id/action_nav_orders_to_nav_add_order"
+            app:destination="@id/nav_add_order" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_add_client"
+        android:name="ordinary.frostsreport.ui.addClient.AddClientFragment"
+        android:label="@string/menu_add_client"
+        tools:layout="@layout/fragment_add_client" />
+    <fragment
+        android:id="@+id/nav_add_product"
+        android:name="ordinary.frostsreport.ui.addProduct.AddProductFragment"
+        android:label="@string/menu_add_product"
+        tools:layout="@layout/fragment_add_product" />
 </navigation>
