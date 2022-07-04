@@ -10,7 +10,7 @@
             android:title="@string/menu_add_order" />
         <item
             android:id="@+id/nav_clients"
-            android:icon="@drawable/clients"
+            android:icon="@drawable/shop"
             android:title="@string/menu_clients" />
         <item
             android:id="@+id/nav_products"
