@@ -22,14 +22,14 @@ class AddOrderFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
+        val addOrderViewModel =
             ViewModelProvider(this).get(AddOrderViewModel::class.java)
 
         _binding = FragmentAddOrderBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
+        addOrderViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
         return root
