@@ -7,7 +7,7 @@
     tools:context=".ui.addProduct.AddProductFragment">
 
     <Button
-        android:id="@+id/add_button"
+        android:id="@+id/add_product"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -15,10 +15,10 @@
         android:onClick="addPoduct"
         android:text="@string/add"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_price" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_price_product" />
 
     <EditText
-        android:id="@+id/edit_name"
+        android:id="@+id/add_name_product"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="24dp"
@@ -32,7 +32,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/edit_price"
+        android:id="@+id/edit_price_product"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="24dp"
@@ -43,6 +43,6 @@
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_name" />
+        app:layout_constraintTop_toBottomOf="@+id/add_name_product" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

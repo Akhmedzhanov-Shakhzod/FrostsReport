@@ -3,6 +3,8 @@ package ordinary.frostsreport
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import android.widget.EditText
+import android.widget.TextView
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -14,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import ordinary.frostsreport.databinding.ActivityMainBinding
+import ordinary.frostsreport.ui.helper.db.DbManager
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,6 +24,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     lateinit var navController: NavController
+
+    private val dbManager = DbManager(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,10 +36,6 @@ class MainActivity : AppCompatActivity() {
         navController = Navigation.findNavController(this,R.id.nav_host_fragment_content_main)
         setSupportActionBar(binding.appBarMain.toolbar)
 
-        /*binding.appBarMain.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }*/
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         //val navController = findNavController(R.id.nav_host_fragment_content_main)
@@ -47,6 +48,8 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        dbManager.openDb()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -60,6 +63,28 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        val clients = dbManager.readFromClient()
+        val products = dbManager.readFromProduct()
+
+//        var temporary = findViewById<TextView>(R.id.tempory)
+//        temporary.text = ""
+//        val dataList = dbManager.readFromProduct()
+//        for (item in dataList){
+//            temporary.append(item.first)
+//            temporary.append("\t")
+//            temporary.append(item.second.toString())
+//            temporary.append("\n")
+//        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        dbManager.closeDb()
+    }
+//////////////////////////////////////////////////////////////////////////////////////
     fun onClickAddClient(view:View){
         navController.navigate(R.id.action_nav_clients_to_addClientFragment)
     }
@@ -71,4 +96,20 @@ class MainActivity : AppCompatActivity() {
     fun onClickAddProduct(view:View){
         navController.navigate(R.id.action_nav_products_to_addProductFragment)
     }
+///////////////////////////////////////////////////////////////////////////////////////
+    fun addClient(view: View){
+
+        var clientName = findViewById<EditText>(R.id.add_name_client)
+        dbManager.inserClientToDb(clientName.text.toString())
+        clientName.setText("")
+    }
+    fun addPoduct(view: View){
+        val productName = findViewById<EditText>(R.id.add_name_product)
+        val productPrice = findViewById<EditText>(R.id.edit_price_product)
+        dbManager.inserProductToDb(productName.text.toString(),productPrice.text.toString().toDouble())
+
+        productName.setText("")
+        productPrice.setText("")
+    }
+///////////////////////////////////////////////////////////////////////////////////////
 }
