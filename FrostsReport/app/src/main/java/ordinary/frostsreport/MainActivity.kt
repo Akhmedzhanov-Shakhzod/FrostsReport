@@ -116,7 +116,13 @@ class MainActivity : AppCompatActivity() {
     fun addPoduct(view: View){
         val productName = findViewById<EditText>(R.id.add_name_product)
         val productPrice = findViewById<EditText>(R.id.edit_price_product)
-        dbManager.inserProductToDb(productName.text.toString(),productPrice.text.toString().toDouble())
+
+        val productNameText = productName.text.toString()
+        val productPriceText = productPrice.text.toString()
+
+        dbManager.inserProductToDb(productNameText,productPriceText.toDouble())
+
+        alert("${productNameText} - добавлено")
 
         productName.setText("")
         productPrice.setText("")
