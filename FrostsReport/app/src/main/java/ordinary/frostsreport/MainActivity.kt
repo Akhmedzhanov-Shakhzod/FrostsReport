@@ -1,10 +1,14 @@
 package ordinary.frostsreport
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
+import android.view.Gravity
 import android.view.Menu
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -13,8 +17,10 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.google.android.material.snackbar.Snackbar
 import ordinary.frostsreport.databinding.ActivityMainBinding
 import ordinary.frostsreport.ui.helper.db.DbManager
 
@@ -99,8 +105,12 @@ class MainActivity : AppCompatActivity() {
 ///////////////////////////////////////////////////////////////////////////////////////
     fun addClient(view: View){
 
-        var clientName = findViewById<EditText>(R.id.add_name_client)
-        dbManager.inserClientToDb(clientName.text.toString())
+        val clientName = findViewById<EditText>(R.id.add_name_client)
+        val clientNameText = clientName.text.toString()
+        dbManager.inserClientToDb(clientNameText)
+
+        alert("${clientNameText} - добавлено")
+
         clientName.setText("")
     }
     fun addPoduct(view: View){
@@ -112,4 +122,17 @@ class MainActivity : AppCompatActivity() {
         productPrice.setText("")
     }
 ///////////////////////////////////////////////////////////////////////////////////////
+    fun alert(text:String){
+    val dialogBuilder = AlertDialog.Builder(this)
+    // create dialog box
+    val alert = dialogBuilder.create()
+    alert.setMessage(text)
+    alert.setOnShowListener { d ->
+        Thread.sleep(500)
+        d.cancel()
+    }
+    // show alert dialog
+    alert.show()
+    //alert.cancel()
+    }
 }
