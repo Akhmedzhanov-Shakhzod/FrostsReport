@@ -54,8 +54,6 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
-        dbManager.openDb()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -71,6 +69,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+
+        dbManager.openDb()
 
         val clients = dbManager.readFromClient()
         val products = dbManager.readFromProduct()
