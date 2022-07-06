@@ -64,22 +64,6 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        dbManager.openDb()
-
-//        var temporary = findViewById<TextView>(R.id.tempory)
-//        temporary.text = ""
-//        val dataList = dbManager.readFromProduct()
-//        for (item in dataList){
-//            temporary.append(item.first)
-//            temporary.append("\t")
-//            temporary.append(item.second.toString())
-//            temporary.append("\n")
-//        }
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         dbManager.closeDb()
@@ -95,31 +79,6 @@ class MainActivity : AppCompatActivity() {
 
     fun onClickAddProduct(view:View){
         navController.navigate(R.id.action_nav_products_to_addProductFragment)
-    }
-///////////////////////////////////////////////////////////////////////////////////////
-    fun addClient(view: View){
-
-        val clientName = findViewById<EditText>(R.id.add_name_client)
-        val clientNameText = clientName.text.toString()
-        dbManager.inserClientToDb(clientNameText)
-
-        alert("${clientNameText} - добавлено")
-
-        clientName.setText("")
-    }
-    fun addPoduct(view: View){
-        val productName = findViewById<EditText>(R.id.add_name_product)
-        val productPrice = findViewById<EditText>(R.id.edit_price_product)
-
-        val productNameText = productName.text.toString()
-        val productPriceText = productPrice.text.toString()
-
-        dbManager.inserProductToDb(productNameText,productPriceText.toDouble())
-
-        alert("${productNameText} - добавлено")
-
-        productName.setText("")
-        productPrice.setText("")
     }
 ///////////////////////////////////////////////////////////////////////////////////////
     fun alert(text:String){

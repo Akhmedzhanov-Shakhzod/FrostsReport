@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import ordinary.frostsreport.databinding.FragmentOrdersBinding
 
 class OrdersFragment : Fragment() {
@@ -22,16 +20,9 @@ class OrdersFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val ordersViewModel =
-            ViewModelProvider(this).get(OrdersViewModel::class.java)
-
         _binding = FragmentOrdersBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textOrders
-        ordersViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
         return root
     }
 
