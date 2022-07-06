@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import ordinary.frostsreport.databinding.ActivityMainBinding
+import ordinary.frostsreport.ui.helper.MAIN
 import ordinary.frostsreport.ui.helper.db.DbManager
 
 class MainActivity : AppCompatActivity() {
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        MAIN = this
         navController = Navigation.findNavController(this,R.id.nav_host_fragment_content_main)
         setSupportActionBar(binding.appBarMain.toolbar)
 
@@ -84,7 +86,7 @@ class MainActivity : AppCompatActivity() {
     }
 //////////////////////////////////////////////////////////////////////////////////////
     fun onClickAddClient(view:View){
-        //navController.navigate(R.id.action_nav_clients_to_addClientFragment)
+        navController.navigate(R.id.action_nav_clients_to_nav_add_client)
     }
 
     fun onClickAddOrder(view:View){
@@ -93,8 +95,6 @@ class MainActivity : AppCompatActivity() {
 
     fun onClickAddProduct(view:View){
         navController.navigate(R.id.action_nav_products_to_addProductFragment)
-        val intent = Intent(this, Clients::class.java)
-        startActivity(intent)
     }
 ///////////////////////////////////////////////////////////////////////////////////////
     fun addClient(view: View){

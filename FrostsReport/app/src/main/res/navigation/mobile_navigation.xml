@@ -38,9 +38,14 @@
         android:name="ordinary.frostsreport.ui.addProduct.AddProductFragment"
         android:label="@string/menu_add_product"
         tools:layout="@layout/fragment_add_product" />
-    <activity
+    <fragment
         android:id="@+id/nav_clients"
-        android:name="ordinary.frostsreport.Clients"
-        android:label="activity_clients"
-        tools:layout="@layout/activity_clients" />
+        android:name="ordinary.frostsreport.ui.clients.ClientsFragment"
+        android:label="@string/menu_clients"
+        tools:layout="@layout/fragment_clients" >
+        <action
+            android:id="@+id/action_nav_clients_to_nav_add_client"
+            app:destination="@id/nav_add_client" />
+    </fragment>
+
 </navigation>
