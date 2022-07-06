@@ -1,14 +1,11 @@
 package ordinary.frostsreport
 
 import android.app.AlertDialog
-import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
-import android.view.Gravity
 import android.view.Menu
 import android.view.View
 import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -17,10 +14,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.google.android.material.snackbar.Snackbar
 import ordinary.frostsreport.databinding.ActivityMainBinding
 import ordinary.frostsreport.ui.helper.db.DbManager
 
@@ -72,9 +67,6 @@ class MainActivity : AppCompatActivity() {
 
         dbManager.openDb()
 
-        val clients = dbManager.readFromClient()
-        val products = dbManager.readFromProduct()
-
 //        var temporary = findViewById<TextView>(R.id.tempory)
 //        temporary.text = ""
 //        val dataList = dbManager.readFromProduct()
@@ -92,7 +84,7 @@ class MainActivity : AppCompatActivity() {
     }
 //////////////////////////////////////////////////////////////////////////////////////
     fun onClickAddClient(view:View){
-        navController.navigate(R.id.action_nav_clients_to_addClientFragment)
+        //navController.navigate(R.id.action_nav_clients_to_addClientFragment)
     }
 
     fun onClickAddOrder(view:View){
@@ -101,6 +93,8 @@ class MainActivity : AppCompatActivity() {
 
     fun onClickAddProduct(view:View){
         navController.navigate(R.id.action_nav_products_to_addProductFragment)
+        val intent = Intent(this, Clients::class.java)
+        startActivity(intent)
     }
 ///////////////////////////////////////////////////////////////////////////////////////
     fun addClient(view: View){

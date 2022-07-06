@@ -14,6 +14,14 @@
         android:theme="@style/Theme.FrostsReport"
         tools:targetApi="31">
         <activity
+            android:name=".Clients"
+            android:exported="false" />
+        <activity
+            android:name=".ClientsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_clients"
+            android:theme="@style/Theme.FrostsReport.NoActionBar" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
