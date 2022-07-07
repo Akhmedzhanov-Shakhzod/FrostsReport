@@ -16,10 +16,8 @@ class ClientAdapter(private val context: Activity, private val clients: ArrayLis
         val inflater: LayoutInflater = LayoutInflater.from(context)
         val view: View = inflater.inflate(R.layout.client_item,null)
 
-        val client_id: TextView = view.findViewById(R.id.client_id)
         val client_name: TextView = view.findViewById(R.id.client_name)
 
-        client_id.text = clients[position].id.toString()
         client_name.text = clients[position].name
         return view
     }

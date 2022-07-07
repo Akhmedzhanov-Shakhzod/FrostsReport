@@ -79,24 +79,24 @@ class MainActivity : AppCompatActivity() {
     fun onClickAddProduct(view:View){
         navController.navigate(R.id.action_nav_products_to_addProductFragment)
     }
+    fun onClient(){
+        navController.navigate(R.id.action_blankClientFragment_to_nav_clients)
+    }
+    fun onProduct(){
+        navController.navigate(R.id.action_blankProductFragment_to_nav_products)
+    }
     ///////////////////////////////////////////////////////////////////////////////////////
-    fun alert(text:String){
+    fun alert(text:String, delay:Long = 500){
     val dialogBuilder = AlertDialog.Builder(this)
     // create dialog box
     val alert = dialogBuilder.create()
     alert.setMessage(text)
     alert.setOnShowListener { d ->
-        Thread.sleep(500)
+        Thread.sleep(delay)
         d.cancel()
     }
     // show alert dialog
     alert.show()
     //alert.cancel()
-    }
-    fun openFragment(f:Fragment, idHolder: Int){
-        supportFragmentManager
-            .beginTransaction()
-            .replace(idHolder, f)
-            .commit()
     }
 }

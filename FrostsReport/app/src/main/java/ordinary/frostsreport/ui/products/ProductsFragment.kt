@@ -11,6 +11,7 @@ import ordinary.frostsreport.databinding.FragmentProductsBinding
 import ordinary.frostsreport.ui.helper.MAIN
 import ordinary.frostsreport.ui.helper.adapter.ProductAdapter
 import ordinary.frostsreport.ui.helper.db.DbManager
+import ordinary.frostsreport.ui.helper.items.Client
 import ordinary.frostsreport.ui.helper.items.Product
 
 class ProductsFragment : Fragment() {
@@ -33,11 +34,12 @@ class ProductsFragment : Fragment() {
         val root: View = binding.root
 
         dbManager.openDb()
-        val product = dbManager.readFromProduct()
+        val product = dbManager.readFromProduct
 
-        for(i in product.indices){
-            products_arrayList.add(Product(i+1, product[i].first,product[i].second))
+        while (product.moveToNext()) {
+            products_arrayList.add(Product(product.getString(0),product.getString(1).toDouble()))
         }
+
         binding.listViewProduct.isClickable = true
         binding.listViewProduct.adapter = ProductAdapter(MAIN,products_arrayList)
 
@@ -53,7 +55,6 @@ class ProductsFragment : Fragment() {
             val name:String = products_arrayList[position].name
             val price:Double = products_arrayList[position].price
 
-            bundle.putString("product_id", position.toString())
             bundle.putString("product_name", name)
             bundle.putString("product_price", price.toString())
 

@@ -61,11 +61,18 @@
         <argument
             android:name="product_price"
             android:defaultValue="Цена" />
+        <action
+            android:id="@+id/action_blankProductFragment_to_nav_products"
+            app:destination="@id/nav_products" />
     </fragment>
     <fragment
         android:id="@+id/blankClientFragment"
         android:name="ordinary.frostsreport.BlankClientFragment"
         android:label="@string/menu_clients"
-        tools:layout="@layout/fragment_blank_client" />
+        tools:layout="@layout/fragment_blank_client" >
+        <action
+            android:id="@+id/action_blankClientFragment_to_nav_clients"
+            app:destination="@id/nav_clients" />
+    </fragment>
 
 </navigation>

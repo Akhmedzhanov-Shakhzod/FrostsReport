@@ -17,11 +17,9 @@ class ProductAdapter(private val context: Activity, private val product: ArrayLi
         val inflater: LayoutInflater = LayoutInflater.from(context)
         val view: View = inflater.inflate(R.layout.product_item,null)
 
-        val product_id: TextView = view.findViewById(R.id.product_id)
         val product_name: TextView = view.findViewById(R.id.product_name)
         val product_price: TextView = view.findViewById(R.id.product_price)
 
-        product_id.text = product[position].id.toString()
         product_name.text = product[position].name
         product_price.text = product[position].price.toString()
         return view

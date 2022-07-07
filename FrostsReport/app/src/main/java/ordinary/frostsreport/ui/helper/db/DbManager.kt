@@ -2,14 +2,17 @@ package ordinary.frostsreport.ui.helper.db
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import ordinary.frostsreport.ui.helper.items.Client
+import ordinary.frostsreport.ui.helper.items.Product
 
 class DbManager(context: Context) {
     val dbHelper = DbHelper(context)
     var db: SQLiteDatabase? = null
 
     fun openDb(){
-        db = dbHelper.readableDatabase
+        db = dbHelper.writableDatabase
     }
     fun closeDb(){
         dbHelper.close()
@@ -29,33 +32,26 @@ class DbManager(context: Context) {
         db?.insert(MyDbNameClass.Product.TABLE_NAME_PRODUCT,null,values)
     }
 
-    fun readFromClient(): ArrayList<String>{
-        val dataList = ArrayList<String>()
-        val cursor = db?.query(MyDbNameClass.Client.TABLE_NAME_CLIENT,null,null,null,
-            null,null,MyDbNameClass.Client.COLUMN_NAME_CLIENT_NAME)
-
-        while (cursor?.moveToNext()!!){
-            val element = cursor.getColumnIndex(MyDbNameClass.Client.COLUMN_NAME_CLIENT_NAME)
-                .let { cursor.getString(it) }
-            dataList.add(element.toString())
-        }
-        cursor.close()
-        return dataList
+    val readFromClient : Cursor
+    get() {
+        val db = dbHelper.writableDatabase
+        val res = db.rawQuery("SELECT * FROM " + MyDbNameClass.Client.TABLE_NAME_CLIENT, null)
+        return res
     }
-    fun readFromProduct(): ArrayList<Pair<String, Double>> {
-        val dataList = ArrayList<Pair<String,Double>>()
-        val cursor = db?.query(MyDbNameClass.Product.TABLE_NAME_PRODUCT,null,null,null,
-            null,null,MyDbNameClass.Product.COLUMN_NAME_PRODUCT_NAME)
+    val readFromProduct : Cursor
+    get() {
+        val db = dbHelper.writableDatabase
+        val res = db.rawQuery("SELECT * FROM " + MyDbNameClass.Product.TABLE_NAME_PRODUCT, null)
+        return res
+    }
 
-        while (cursor?.moveToNext()!!){
-            val element1 = cursor.getColumnIndex(MyDbNameClass.Product.COLUMN_NAME_PRODUCT_NAME)
-                .let { cursor.getString(it) }
-            val element2 = cursor.getColumnIndex(MyDbNameClass.Product.COLUMN_NAME_PRODUCT_PRICE)
-                .let { cursor.getString(it) }
-            dataList.add(element1.toString() to element2.toDouble())
-        }
-        cursor.close()
-        return dataList
+    fun deleteClient(client: String):Int {
+        val db = dbHelper.writableDatabase
+        return db.delete(MyDbNameClass.Client.TABLE_NAME_CLIENT, MyDbNameClass.Client.COLUMN_NAME_CLIENT_NAME + "=?", arrayOf(client))
+    }
+    fun deleteProduct(product: String):Int {
+        val db = dbHelper.writableDatabase
+        return db.delete(MyDbNameClass.Product.TABLE_NAME_PRODUCT, MyDbNameClass.Product.COLUMN_NAME_PRODUCT_NAME + "=?", arrayOf(product))
     }
 }
 

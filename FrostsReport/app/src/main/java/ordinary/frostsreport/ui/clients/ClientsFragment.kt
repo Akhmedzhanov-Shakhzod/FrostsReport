@@ -1,6 +1,7 @@
 package ordinary.frostsreport.ui.clients
 
 import android.os.Bundle
+import android.provider.Settings.Global.getString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,10 +34,10 @@ class ClientsFragment : Fragment() {
         val root: View = binding.root
 
         dbManager.openDb()
-        val clients = dbManager.readFromClient()
+        val clients = dbManager.readFromClient
 
-        for(i in clients.indices){
-            client_arrayList.add(Client(i+1,clients.get(i)))
+        while (clients.moveToNext()) {
+            client_arrayList.add(Client(clients.getString(0)))
         }
         binding.listViewClient.isClickable = true
         binding.listViewClient.adapter = ClientAdapter(MAIN,client_arrayList)

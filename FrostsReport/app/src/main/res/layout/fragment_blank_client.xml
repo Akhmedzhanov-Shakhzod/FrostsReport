@@ -13,23 +13,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/client_id"
-            android:layout_width="30dp"
-            android:layout_height="48dp"
-            android:textColor="@color/black"
-            android:textSize="16dp">
-
-        </TextView>
 
         <EditText
             android:id="@+id/client_name"
-            android:layout_width="250dp"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginLeft="30dp"
             android:inputType="text"
@@ -41,7 +34,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/delete_product"
+        android:id="@+id/delete_client"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -55,7 +48,7 @@
     </Button>
 
     <Button
-        android:id="@+id/save_product"
+        android:id="@+id/save_client"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
