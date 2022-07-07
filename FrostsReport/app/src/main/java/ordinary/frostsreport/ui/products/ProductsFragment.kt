@@ -5,12 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import ordinary.frostsreport.R
 import ordinary.frostsreport.databinding.FragmentProductsBinding
 import ordinary.frostsreport.ui.helper.MAIN
-import ordinary.frostsreport.ui.helper.adapter.ClientAdapter
 import ordinary.frostsreport.ui.helper.adapter.ProductAdapter
 import ordinary.frostsreport.ui.helper.db.DbManager
-import ordinary.frostsreport.ui.helper.items.Client
 import ordinary.frostsreport.ui.helper.items.Product
 
 class ProductsFragment : Fragment() {
@@ -38,10 +39,27 @@ class ProductsFragment : Fragment() {
         for(i in product.indices){
             products_arrayList.add(Product(i+1, product[i].first,product[i].second))
         }
-        binding.listViewProduct.adapter = null
         binding.listViewProduct.isClickable = true
         binding.listViewProduct.adapter = ProductAdapter(MAIN,products_arrayList)
+
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val bundle = Bundle()
+
+        binding.listViewProduct.setOnItemClickListener { parent, view, position, id ->
+
+            val name:String = products_arrayList[position].name
+            val price:Double = products_arrayList[position].price
+
+            bundle.putString("product_id", position.toString())
+            bundle.putString("product_name", name)
+            bundle.putString("product_price", price.toString())
+
+            findNavController().navigate(R.id.blankProductFragment, bundle)
+        }
     }
 
     override fun onDestroyView() {

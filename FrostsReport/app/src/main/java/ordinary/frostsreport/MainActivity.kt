@@ -1,11 +1,9 @@
 package ordinary.frostsreport
 
 import android.app.AlertDialog
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
-import android.widget.EditText
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -14,10 +12,13 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import ordinary.frostsreport.databinding.ActivityMainBinding
 import ordinary.frostsreport.ui.helper.MAIN
+import ordinary.frostsreport.ui.helper.PRODUCTBLANK
 import ordinary.frostsreport.ui.helper.db.DbManager
 
 class MainActivity : AppCompatActivity() {
@@ -80,7 +81,7 @@ class MainActivity : AppCompatActivity() {
     fun onClickAddProduct(view:View){
         navController.navigate(R.id.action_nav_products_to_addProductFragment)
     }
-///////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////
     fun alert(text:String){
     val dialogBuilder = AlertDialog.Builder(this)
     // create dialog box
@@ -93,5 +94,11 @@ class MainActivity : AppCompatActivity() {
     // show alert dialog
     alert.show()
     //alert.cancel()
+    }
+    fun openFragment(f:Fragment, idHolder: Int){
+        supportFragmentManager
+            .beginTransaction()
+            .replace(idHolder, f)
+            .commit()
     }
 }

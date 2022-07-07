@@ -37,7 +37,6 @@ class ClientsFragment : Fragment() {
             client_arrayList.add(Client(i+1,clients.get(i)))
         }
         binding.listViewClient.isClickable = true
-        binding.listViewClient.adapter = null
         binding.listViewClient.adapter = ClientAdapter(MAIN,client_arrayList)
         return root
     }
