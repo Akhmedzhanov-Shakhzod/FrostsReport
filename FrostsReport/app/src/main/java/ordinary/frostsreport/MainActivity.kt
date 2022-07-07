@@ -15,10 +15,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import ordinary.frostsreport.databinding.ActivityMainBinding
 import ordinary.frostsreport.ui.helper.MAIN
-import ordinary.frostsreport.ui.helper.PRODUCTBLANK
 import ordinary.frostsreport.ui.helper.db.DbManager
 
 class MainActivity : AppCompatActivity() {

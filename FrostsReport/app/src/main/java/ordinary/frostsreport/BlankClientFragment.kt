@@ -9,27 +9,23 @@ import android.widget.EditText
 import android.widget.TextView
 
 
-class BlankProductFragment : Fragment() {
+class BlankClientFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_blank_product, container, false)
-
         // Inflate the layout for this fragment
-        return view
+        return inflater.inflate(R.layout.fragment_blank_client, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val id = view.findViewById<TextView>(R.id.product_id)
-        val name = view.findViewById<EditText>(R.id.product_name)
-        val price = view.findViewById<EditText>(R.id.product_price)
+        val id = view.findViewById<TextView>(R.id.client_id)
+        val name = view.findViewById<EditText>(R.id.client_name)
 
-        id.text = arguments?.getString("product_id")
-        name.setText(arguments?.getString("product_name"))
-        price.setText(arguments?.getString("product_price"))
+        id.text = arguments?.getString("client_id")
+        name.setText(arguments?.getString("client_name"))
     }
 }

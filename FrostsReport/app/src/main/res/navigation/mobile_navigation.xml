@@ -18,9 +18,6 @@
         <action
             android:id="@+id/action_nav_products_to_addProductFragment"
             app:destination="@id/nav_add_product" />
-        <action
-            android:id="@+id/action_nav_products_to_blankProductFragment"
-            app:destination="@id/blankProductFragment" />
     </fragment>
     <fragment
         android:id="@+id/nav_orders"
@@ -65,5 +62,10 @@
             android:name="product_price"
             android:defaultValue="Цена" />
     </fragment>
+    <fragment
+        android:id="@+id/blankClientFragment"
+        android:name="ordinary.frostsreport.BlankClientFragment"
+        android:label="@string/menu_clients"
+        tools:layout="@layout/fragment_blank_client" />
 
 </navigation>
