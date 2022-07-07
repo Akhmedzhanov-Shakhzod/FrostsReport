@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.TextView
 import ordinary.frostsreport.ui.helper.MAIN
 import ordinary.frostsreport.ui.helper.db.DbManager
+import ordinary.frostsreport.ui.helper.items.Product
 
 
 class BlankProductFragment : Fragment() {
@@ -37,21 +38,31 @@ class BlankProductFragment : Fragment() {
         val name = view.findViewById<EditText>(R.id.product_name)
         val price = view.findViewById<EditText>(R.id.product_price)
 
-        name.setText(arguments?.getString("product_name"))
-        price.setText(arguments?.getString("product_price"))
+        val productNameText = arguments?.getString("product_name").toString()
+        val productPriceText = arguments?.getString("product_price").toString()
+
+        name.setText(productNameText)
+        price.setText(productPriceText)
 
         delete.setOnClickListener {
-            val d = dbManager.deleteProduct(arguments?.getString("product_name").toString())
-            if(d == -1){
-                MAIN.alert("Не получилось удалить ${arguments?.getString("product_name")}",1000)
+            if(dbManager.deleteProduct(productNameText)){
+                MAIN.alert("${productNameText} - удалено",1000)
+                MAIN.onProduct()
             }
             else {
-                MAIN.alert("${arguments?.getString("product_name")} - удалено",1000)
-                MAIN.onProduct()
+                MAIN.alert("Не получилось удалить ${productNameText}",1000)
             }
         }
         save.setOnClickListener {
-
+            if(dbManager.updateProduct(productNameText, Product(name.text.toString(),price.text.toString().toDouble()))){
+                MAIN.alert("${productNameText} обновлено на ${name.text}",1000)
+                MAIN.onProduct()
+            }
+            else {
+                MAIN.alert("Не получилось обновить ${productNameText} - ${productPriceText} на ${name.text} - ${price.text}",1500)
+                name.setText(productNameText)
+                price.setText(productPriceText)
+            }
         }
     }
 

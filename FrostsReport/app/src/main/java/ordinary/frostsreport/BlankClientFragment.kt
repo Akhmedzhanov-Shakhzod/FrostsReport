@@ -35,20 +35,27 @@ class BlankClientFragment : Fragment() {
 
         val name = view.findViewById<EditText>(R.id.client_name)
 
-        name.setText(arguments?.getString("client_name"))
+        val clientNameText = arguments?.getString("client_name").toString()
+        name.setText(clientNameText)
 
         delete.setOnClickListener {
-            val d = dbManager.deleteClient(arguments?.getString("client_name").toString())
-            if(d == -1){
-                MAIN.alert("Не получилось удалить ${arguments?.getString("client_name")}",1000)
+            if(dbManager.deleteClient(clientNameText)){
+                MAIN.alert("${clientNameText} - удалено",1000)
+                MAIN.onClient()
             }
             else {
-                MAIN.alert("${arguments?.getString("client_name")} - удалено",1000)
-                MAIN.onClient()
+                MAIN.alert("Не получилось удалить ${arguments?.getString("client_name")}",1000)
             }
         }
         save.setOnClickListener {
-
+            if(dbManager.updateClient(clientNameText,name.text.toString())){
+                MAIN.alert("${clientNameText} обновлено на ${name.text}",1000)
+                MAIN.onClient()
+            }
+            else {
+                MAIN.alert("Не получилось обновить ${clientNameText} на ${name.text}",1500)
+                name.setText(clientNameText)
+            }
         }
     }
 

@@ -35,12 +35,23 @@ class AddProductFragment : Fragment() {
             val productNameText = binding.editNameProduct.text.toString()
             val productPriceText = binding.editPriceProduct.text.toString()
 
-            dbManager.inserProductToDb(productNameText,productPriceText.toDouble())
+            val countName = productNameText.trim(' ')
+            val countPrice = productPriceText.trim(' ')
+            if(countName.isNotEmpty() && countPrice.isNotEmpty()) {
+                val iresult = dbManager.inserProductToDb(countName,countPrice.toDouble())
 
-            MAIN.alert("${productNameText} - добавлено")
-
-            binding.editNameProduct.setText("")
-            binding.editPriceProduct.setText("")
+                if (iresult == 0) {
+                    MAIN.alert("${countName} - добавлено")
+                    binding.editNameProduct.setText("")
+                    binding.editPriceProduct.setText("")
+                }
+                else if (iresult == 1) {
+                    MAIN.alert("${countName} - уже существует :)", 1000)
+                }
+                else if (iresult == 2) {
+                    MAIN.alert("Что-то пошло не так :(", 1000)
+                }
+            }
         }
         return root
     }

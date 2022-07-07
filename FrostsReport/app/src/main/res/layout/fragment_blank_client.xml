@@ -24,7 +24,6 @@
             android:id="@+id/client_name"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginLeft="30dp"
             android:inputType="text"
             android:textColor="@color/black"
             android:textSize="16dp">

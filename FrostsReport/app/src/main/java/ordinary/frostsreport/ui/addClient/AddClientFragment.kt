@@ -33,16 +33,25 @@ class AddClientFragment : Fragment() {
 
         binding.addClient.setOnClickListener {
             val clientNameText = binding.addNameClient.text.toString()
-            dbManager.inserClientToDb(clientNameText)
+            val count = clientNameText.trim(' ')
+            if(count.isNotEmpty()) {
+                val iresult = dbManager.inserClientToDb(count)
 
-            MAIN.alert("${clientNameText} - добавлено")
-
-            binding.addNameClient.setText("")
+                if (iresult == 0) {
+                    MAIN.alert("${count} - добавлено")
+                    binding.addNameClient.setText("")
+                }
+                else if (iresult == 1) {
+                    MAIN.alert("${count} - уже существует :)", 1000)
+                }
+                else if (iresult == 2) {
+                    MAIN.alert("Что-то пошло не так :(", 1000)
+                }
+            }
         }
 
         return root
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
