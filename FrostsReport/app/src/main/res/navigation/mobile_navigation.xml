@@ -15,6 +15,9 @@
             app:destination="@id/choseClientFragment" />
         <argument android:name="client_name"
             android:defaultValue="" />
+        <action
+            android:id="@+id/action_nav_add_order_to_choseProductsFragment"
+            app:destination="@id/choseProductsFragment" />
     </fragment>
     <fragment
         android:id="@+id/nav_products"
@@ -85,5 +88,11 @@
         android:name="ordinary.frostsreport.ui.addOrder.ChoseClientFragment"
         android:label="@string/chose_shop"
         tools:layout="@layout/fragment_add_order_chose_clients" />
+    <fragment
+        android:id="@+id/choseProductsFragment"
+        android:name="ordinary.frostsreport.ui.addOrder.ChoseProductsFragment"
+        android:label="@string/add_product"
+        tools:layout="@layout/fragment_add_order_chose_products">>
+    </fragment>
 
 </navigation>

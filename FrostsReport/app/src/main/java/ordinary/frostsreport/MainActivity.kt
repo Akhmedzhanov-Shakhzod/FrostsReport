@@ -18,6 +18,7 @@ import androidx.navigation.Navigation
 import ordinary.frostsreport.databinding.ActivityMainBinding
 import ordinary.frostsreport.ui.helper.MAIN
 import ordinary.frostsreport.ui.helper.db.DbManager
+import ordinary.frostsreport.ui.helper.items.Product
 
 class MainActivity : AppCompatActivity() {
 
@@ -71,11 +72,9 @@ class MainActivity : AppCompatActivity() {
     fun onClickAddClient(view:View){
         navController.navigate(R.id.action_nav_clients_to_nav_add_client)
     }
-
     fun onClickAddOrder(view:View){
         navController.navigate(R.id.action_nav_orders_to_nav_add_order)
     }
-
     fun onClickAddProduct(view:View){
         navController.navigate(R.id.action_nav_products_to_addProductFragment)
     }

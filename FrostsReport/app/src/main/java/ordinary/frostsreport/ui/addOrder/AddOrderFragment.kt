@@ -10,10 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ordinary.frostsreport.R
 import ordinary.frostsreport.databinding.FragmentAddOrderBinding
+import ordinary.frostsreport.ui.helper.CHOSENPRODUCTSDATAMODEL
 import ordinary.frostsreport.ui.helper.MAIN
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.LocalDateTime
+import ordinary.frostsreport.ui.helper.adapter.ChoseProductAdapter
+import ordinary.frostsreport.ui.helper.adapter.ClientAdapter
 
 class AddOrderFragment : Fragment() {
 
@@ -64,12 +64,24 @@ class AddOrderFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val choseShop = binding.choseShop
-        val clientNameText = arguments?.getString("client_name").toString()
+        val choseProduct = binding.choseProduct
 
+        val clientNameText = arguments?.getString("client_name")
         choseShop.text = clientNameText
+//        choseShop.text = CHOSENPRODUCTSDATAMODEL.t
+
+        binding.listChosenViewProduct.isClickable = true
+
+        if(CHOSENPRODUCTSDATAMODEL.product.isNotEmpty()){
+            binding.listChosenViewProduct.adapter = ChoseProductAdapter(MAIN,CHOSENPRODUCTSDATAMODEL.product)
+        }
 
         choseShop.setOnClickListener {
             findNavController().navigate(R.id.choseClientFragment)
+        }
+
+        choseProduct.setOnClickListener {
+            findNavController().navigate(R.id.choseProductsFragment)
         }
     }
 
@@ -78,3 +90,5 @@ class AddOrderFragment : Fragment() {
         _binding = null
     }
 }
+
+
