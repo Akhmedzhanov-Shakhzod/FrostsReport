@@ -1,7 +1,6 @@
 package ordinary.frostsreport.ui.helper.adapter
 
 import android.app.Activity
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

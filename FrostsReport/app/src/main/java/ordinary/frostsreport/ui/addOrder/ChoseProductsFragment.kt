@@ -51,19 +51,16 @@ class ChoseProductsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var chProduct: Pair<Product,Double>
+        val bundle = Bundle()
         binding.listViewChoseProduct.setOnItemClickListener { parent, view, position, id ->
 
             val name:String = products_arrayList[position].name
             val price:Double = products_arrayList[position].price
 
-            val product = Product(name,price)
+            bundle.putString("product_name",name)
+            bundle.putString("product_price",price.toString())
 
-            val pair = Pair(product,1.0)
-
-            CHOSENPRODUCTSDATAMODEL.product.add(pair)
-
-            findNavController().navigate(R.id.nav_add_order)
+            findNavController().navigate(R.id.productCountBlankFragment,bundle)
         }
     }
 
@@ -71,5 +68,6 @@ class ChoseProductsFragment : Fragment() {
         super.onDestroyView()
         _binding = null
         dbManager.closeDb()
+        products_arrayList.clear()
     }
 }

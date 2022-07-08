@@ -91,6 +91,29 @@
         android:name="ordinary.frostsreport.ui.addOrder.ChoseProductsFragment"
         android:label="@string/add_product"
         tools:layout="@layout/fragment_add_order_chose_products">>
+        <action
+            android:id="@+id/action_choseProductsFragment_to_productCountBlankFragment"
+            app:destination="@id/productCountBlankFragment" />
+        <action
+            android:id="@+id/action_choseProductsFragment_to_productFromAddOrderBlankFragment"
+            app:destination="@id/productFromAddOrderBlankFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productCountBlankFragment"
+        android:name="ordinary.frostsreport.ui.addOrder.ProductCountBlankFragment"
+        android:label="Укажите количество"
+        tools:layout="@layout/fragment_product_count_blank" >
+        <argument android:name="product_name" />
+        <argument android:name="product_price" />
+    </fragment>
+    <fragment
+        android:id="@+id/productFromAddOrderBlankFragment"
+        android:name="ordinary.frostsreport.ui.addOrder.ProductFromAddOrderBlankFragment"
+        android:label="Редактировать"
+        tools:layout="@layout/fragment_product_from_add_order_blank" >
+        <argument android:name="product_price" />
+        <argument android:name="product_name" />
+        <argument android:name="product_count" />
     </fragment>
 
 </navigation>

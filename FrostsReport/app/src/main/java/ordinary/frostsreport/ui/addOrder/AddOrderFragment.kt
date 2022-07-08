@@ -32,11 +32,8 @@ class AddOrderFragment : Fragment() {
         _binding = FragmentAddOrderBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        var amount:Double = 0.00
-
         val textData = binding.textDate
-        val amoutText = binding.amountText
-        val buttonData = binding.buttonDate
+        val buttonDate = binding.buttonDate
 
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
@@ -47,25 +44,26 @@ class AddOrderFragment : Fragment() {
 
         textData.text = "$day/${month+1}/$year"
 
-        buttonData.setOnClickListener {
+        buttonDate.setOnClickListener {
             val dpd = DatePickerDialog(MAIN,DatePickerDialog.OnDateSetListener{
                 view,mYear,mMonth,mDay ->
                 textData.text = "$mDay/${mMonth+1}/$mYear"
             },year,month,day)
             dpd.show()
         }
-
-        amoutText.text =  amount.toString()
-
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var amount:Double = 0.00
+
+        val amoutText = binding.amountText
         val choseShop = binding.choseShop
         val choseProduct = binding.choseProduct
         val addOrder = binding.addOrderButton
+        val clear = binding.clear
 
         val clientNameText = CHOSENPRODUCTSDATAMODEL.client
         choseShop.text = clientNameText
@@ -74,8 +72,25 @@ class AddOrderFragment : Fragment() {
 
         if(CHOSENPRODUCTSDATAMODEL.product.isNotEmpty()){
             binding.listChosenViewProduct.adapter = ChoseProductAdapter(MAIN,CHOSENPRODUCTSDATAMODEL.product)
+            for (i in 0 until CHOSENPRODUCTSDATAMODEL.product.count()){
+                amount += CHOSENPRODUCTSDATAMODEL.productAmount[i]
+            }
+        }
+        binding.listChosenViewProduct.setOnItemClickListener { parent, view, position, id ->
+            val bundle = Bundle()
+
+            val name:String = CHOSENPRODUCTSDATAMODEL.product[position].first.name
+            val price:Double = CHOSENPRODUCTSDATAMODEL.product[position].first.price
+            val count:Double = CHOSENPRODUCTSDATAMODEL.product[position].second
+
+            bundle.putString("product_name",name)
+            bundle.putString("product_price",price.toString())
+            bundle.putString("product_count",count.toString())
+
+            findNavController().navigate(R.id.productFromAddOrderBlankFragment,bundle)
         }
 
+        amoutText.text = amount.toString()
         choseShop.setOnClickListener {
             findNavController().navigate(R.id.choseClientFragment)
         }
@@ -87,6 +102,7 @@ class AddOrderFragment : Fragment() {
             if(choseShop.text.isNotEmpty() && CHOSENPRODUCTSDATAMODEL.product.isNotEmpty()){
                 CHOSENPRODUCTSDATAMODEL.client = ""
                 CHOSENPRODUCTSDATAMODEL.product.clear()
+                CHOSENPRODUCTSDATAMODEL.productAmount.clear()
 
 
                 findNavController().navigate(R.id.nav_add_order)
@@ -97,6 +113,14 @@ class AddOrderFragment : Fragment() {
             else {
                 MAIN.alert("Выберите хотя бы один продукт :) ",1000)
             }
+        }
+
+        clear.setOnClickListener {
+            CHOSENPRODUCTSDATAMODEL.client = ""
+            CHOSENPRODUCTSDATAMODEL.product.clear()
+            CHOSENPRODUCTSDATAMODEL.productAmount.clear()
+
+            findNavController().navigate(R.id.nav_add_order)
         }
     }
 
