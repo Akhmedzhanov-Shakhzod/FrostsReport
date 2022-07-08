@@ -35,7 +35,7 @@
 
             </TextView>
 
-            <EditText
+            <TextView
                 android:id="@+id/chosen_product_count"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
                 android:textColor="@color/black"
                 android:textSize="14dp">
 
-            </EditText>
+            </TextView>
 
             <TextView
                 android:id="@+id/chosen_product_amount"

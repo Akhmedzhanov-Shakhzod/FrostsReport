@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import ordinary.frostsreport.R
 import ordinary.frostsreport.databinding.FragmentAddOrderChoseClientsBinding
 import ordinary.frostsreport.databinding.FragmentClientsBinding
+import ordinary.frostsreport.ui.helper.CHOSENPRODUCTSDATAMODEL
 import ordinary.frostsreport.ui.helper.MAIN
 import ordinary.frostsreport.ui.helper.adapter.ClientAdapter
 import ordinary.frostsreport.ui.helper.db.DbManager
@@ -47,15 +48,14 @@ class ChoseClientFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val bundle = Bundle()
 
         binding.listViewChoseClient.setOnItemClickListener { parent, view, position, id ->
 
             val name:String = client_arrayList[position].name
 
-            bundle.putString("client_name", name)
+            CHOSENPRODUCTSDATAMODEL.client = name
 
-            findNavController().navigate(R.id.nav_add_order, bundle)
+            findNavController().navigate(R.id.nav_add_order)
         }
     }
     override fun onDestroyView() {

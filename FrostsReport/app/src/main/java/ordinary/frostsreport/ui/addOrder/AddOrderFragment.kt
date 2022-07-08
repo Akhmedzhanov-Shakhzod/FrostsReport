@@ -65,10 +65,10 @@ class AddOrderFragment : Fragment() {
 
         val choseShop = binding.choseShop
         val choseProduct = binding.choseProduct
+        val addOrder = binding.addOrderButton
 
-        val clientNameText = arguments?.getString("client_name")
+        val clientNameText = CHOSENPRODUCTSDATAMODEL.client
         choseShop.text = clientNameText
-//        choseShop.text = CHOSENPRODUCTSDATAMODEL.t
 
         binding.listChosenViewProduct.isClickable = true
 
@@ -82,6 +82,21 @@ class AddOrderFragment : Fragment() {
 
         choseProduct.setOnClickListener {
             findNavController().navigate(R.id.choseProductsFragment)
+        }
+        addOrder.setOnClickListener {
+            if(choseShop.text.isNotEmpty() && CHOSENPRODUCTSDATAMODEL.product.isNotEmpty()){
+                CHOSENPRODUCTSDATAMODEL.client = ""
+                CHOSENPRODUCTSDATAMODEL.product.clear()
+
+
+                findNavController().navigate(R.id.nav_add_order)
+            }
+            else if (choseShop.text.isEmpty()){
+                MAIN.alert("Выберите магазин :) ",1000)
+            }
+            else {
+                MAIN.alert("Выберите хотя бы один продукт :) ",1000)
+            }
         }
     }
 
