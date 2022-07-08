@@ -9,7 +9,13 @@
         android:id="@+id/nav_add_order"
         android:name="ordinary.frostsreport.ui.addOrder.AddOrderFragment"
         android:label="@string/menu_add_order"
-        tools:layout="@layout/fragment_add_order" />
+        tools:layout="@layout/fragment_add_order" >
+        <action
+            android:id="@+id/action_nav_add_order_to_choseClientFragment"
+            app:destination="@id/choseClientFragment" />
+        <argument android:name="client_name"
+            android:defaultValue="" />
+    </fragment>
     <fragment
         android:id="@+id/nav_products"
         android:name="ordinary.frostsreport.ui.products.ProductsFragment"
@@ -74,5 +80,10 @@
             android:id="@+id/action_blankClientFragment_to_nav_clients"
             app:destination="@id/nav_clients" />
     </fragment>
+    <fragment
+        android:id="@+id/choseClientFragment"
+        android:name="ordinary.frostsreport.ui.addOrder.ChoseClientFragment"
+        android:label="@string/chose_shop"
+        tools:layout="@layout/fragment_add_order_chose_clients" />
 
 </navigation>

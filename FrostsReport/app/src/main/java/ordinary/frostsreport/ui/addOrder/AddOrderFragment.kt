@@ -7,8 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import ordinary.frostsreport.R
 import ordinary.frostsreport.databinding.FragmentAddOrderBinding
 import ordinary.frostsreport.ui.helper.MAIN
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -29,15 +32,18 @@ class AddOrderFragment : Fragment() {
         _binding = FragmentAddOrderBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        var amount:Double = 0.00
+
         val textData = binding.textDate
+        val amoutText = binding.amountText
         val buttonData = binding.buttonDate
 
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
-//        val hour = calendar.hour
-//        val minute = calendar.minute
+//        var hour = calendar.get(Calendar.HOUR_OF_DAY)
+//        val minute = calendar.get(Calendar.MINUTE)
 
         textData.text = "$day/${month+1}/$year"
 
@@ -48,9 +54,24 @@ class AddOrderFragment : Fragment() {
             },year,month,day)
             dpd.show()
         }
+
+        amoutText.text =  amount.toString()
+
         return root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val choseShop = binding.choseShop
+        val clientNameText = arguments?.getString("client_name").toString()
+
+        choseShop.text = clientNameText
+
+        choseShop.setOnClickListener {
+            findNavController().navigate(R.id.choseClientFragment)
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

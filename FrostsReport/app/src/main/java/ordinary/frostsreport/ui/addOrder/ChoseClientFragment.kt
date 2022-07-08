@@ -1,4 +1,4 @@
-package ordinary.frostsreport.ui.clients
+package ordinary.frostsreport.ui.addOrder
 
 import android.os.Bundle
 import android.provider.Settings.Global.getString
@@ -8,15 +8,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ordinary.frostsreport.R
+import ordinary.frostsreport.databinding.FragmentAddOrderChoseClientsBinding
 import ordinary.frostsreport.databinding.FragmentClientsBinding
 import ordinary.frostsreport.ui.helper.MAIN
 import ordinary.frostsreport.ui.helper.adapter.ClientAdapter
 import ordinary.frostsreport.ui.helper.db.DbManager
 import ordinary.frostsreport.ui.helper.items.Client
 
-class ClientsFragment : Fragment() {
+class ChoseClientFragment : Fragment() {
 
-    private var _binding: FragmentClientsBinding? = null
+    private var _binding: FragmentAddOrderChoseClientsBinding? = null
 
     private val client_arrayList:ArrayList<Client> = ArrayList()
     private val dbManager = DbManager(MAIN)
@@ -30,7 +31,7 @@ class ClientsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentClientsBinding.inflate(inflater, container, false)
+        _binding = FragmentAddOrderChoseClientsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         dbManager.openDb()
@@ -39,8 +40,8 @@ class ClientsFragment : Fragment() {
         while (clients.moveToNext()) {
             client_arrayList.add(Client(clients.getString(0)))
         }
-        binding.listViewClient.isClickable = true
-        binding.listViewClient.adapter = ClientAdapter(MAIN,client_arrayList)
+        binding.listViewChoseClient.isClickable = true
+        binding.listViewChoseClient.adapter = ClientAdapter(MAIN,client_arrayList)
         return root
     }
 
@@ -48,13 +49,13 @@ class ClientsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val bundle = Bundle()
 
-        binding.listViewClient.setOnItemClickListener { parent, view, position, id ->
+        binding.listViewChoseClient.setOnItemClickListener { parent, view, position, id ->
 
             val name:String = client_arrayList[position].name
 
             bundle.putString("client_name", name)
 
-            findNavController().navigate(R.id.blankClientFragment, bundle)
+            findNavController().navigate(R.id.nav_add_order, bundle)
         }
     }
     override fun onDestroyView() {
