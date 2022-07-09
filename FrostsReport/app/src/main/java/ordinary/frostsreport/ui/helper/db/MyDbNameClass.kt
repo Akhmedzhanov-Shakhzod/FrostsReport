@@ -2,18 +2,20 @@ package ordinary.frostsreport.ui.helper.db
 
 
 object MyDbNameClass {
-    const val DATABASE_VERSION = 3
+    const val DATABASE_VERSION = 4
     const val DATABASE_NAME = "FrostsReport.db"
 
 /************************** TABLE CLIENT **********************/
 
     object Client {
         const val TABLE_NAME_CLIENT = "client"
+        const val COLUMN_NAME_CLIENT_ID = "client_id"
         const val COLUMN_NAME_CLIENT_NAME = "client_name"
     }
 
     const val SQL_CREATE_CLIENT =
         "CREATE TABLE IF NOT EXISTS ${Client.TABLE_NAME_CLIENT} (" +
+                "${Client.COLUMN_NAME_CLIENT_ID} INTEGER PRIMARY KEY," +
                 "${Client.COLUMN_NAME_CLIENT_NAME} TEXT)"
 
     const val SQL_DELETE_CLIENT = "DROP TABLE IF EXISTS ${Client.TABLE_NAME_CLIENT}"
@@ -24,16 +26,51 @@ object MyDbNameClass {
 
     object Product {
         const val TABLE_NAME_PRODUCT = "product"
+        const val COLUMN_NAME_PRODUCT_ID = "product_id"
         const val COLUMN_NAME_PRODUCT_NAME = "product_name"
         const val COLUMN_NAME_PRODUCT_PRICE = "product_price"
     }
 
     const val SQL_CREATE_PRODUCT =
         "CREATE TABLE IF NOT EXISTS ${Product.TABLE_NAME_PRODUCT} (" +
+                "${Product.COLUMN_NAME_PRODUCT_ID} INTEGER PRIMARY KEY," +
                 "${Product.COLUMN_NAME_PRODUCT_NAME} TEXT," +
                 "${Product.COLUMN_NAME_PRODUCT_PRICE} REAL)"
 
     const val SQL_DELETE_PRODUCT = "DROP TABLE IF EXISTS ${Product.TABLE_NAME_PRODUCT}"
 
 //////////////////////////////////////////////////////////////////
+
+/*************************** TABLE ORDER *********************/
+
+    object Order {
+        const val TABLE_NAME_ORDER = "order"
+        const val COLUMN_NAME_ORDER_ID = "order_id"
+        const val COLUMN_NAME_ORDER_DATE = "order_date"
+        const val COLUMN_NAME_ORDER_CLIENT = "order_client"
+    }
+    object OrderProducts {
+        const val TABLE_NAME_ORDER_PRODUCTS = "order_products"
+        const val COLUMN_NAME_ORDER_PRODUCTS_ID = "order_products_id"
+        const val COLUMN_NAME_ORDER_ID = "order_id"
+        const val COLUMN_NAME_PRODUCT_ID = "product_id"
+    }
+
+    const val SQL_CREATE_ORDER =
+        "CREATE TABLE IF NOT EXISTS ${Order.TABLE_NAME_ORDER} (" +
+                "${Order.COLUMN_NAME_ORDER_ID} INTEGER PRIMARY KEY," +
+                "${Order.COLUMN_NAME_ORDER_DATE} TEXT," +
+                "${Order.COLUMN_NAME_ORDER_CLIENT} TEXT)"
+
+    const val SQL_DELETE_ORDER = "DROP TABLE IF EXISTS ${Order.TABLE_NAME_ORDER}"
+
+    const val SQL_CREATE_ORDER_PRODUCTS =
+        "CREATE TABLE IF NOT EXISTS ${OrderProducts.TABLE_NAME_ORDER_PRODUCTS} (" +
+                "${OrderProducts.COLUMN_NAME_ORDER_PRODUCTS_ID} INTEGER PRIMARY KEY," +
+                "${OrderProducts.COLUMN_NAME_ORDER_ID} INTEGER," +
+                "${OrderProducts.COLUMN_NAME_PRODUCT_ID} INTEGER)"
+
+    const val SQL_DELETE_ORDER_PRODUCTS = "DROP TABLE IF EXISTS ${OrderProducts.TABLE_NAME_ORDER_PRODUCTS}"
+
+/////////////////////////////////////////////////////////////////
 }

@@ -38,7 +38,7 @@ class AddProductFragment : Fragment() {
             val countName = productNameText.trim(' ')
             val countPrice = productPriceText.trim(' ')
             if(countName.isNotEmpty() && countPrice.isNotEmpty()) {
-                val iresult = dbManager.inserProductToDb(countName,countPrice.toDouble())
+                val iresult = dbManager.insertProductToDb(countName,countPrice.toDouble())
 
                 if (iresult == 0) {
                     MAIN.alert("${countName} - добавлено")

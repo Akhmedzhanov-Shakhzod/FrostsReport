@@ -18,11 +18,11 @@ class DbManager(context: Context) {
         dbHelper.close()
     }
 
-    fun inserClientToDb(name: String): Int {
+    fun insertClientToDb(name: String): Int {
         val clients = readFromClient
 
         while (clients.moveToNext()) {
-            if(clients.getString(0) == name){
+            if(clients.getString(1) == name){
                 return 1
             }
         }
@@ -32,11 +32,11 @@ class DbManager(context: Context) {
         val success = db?.insert(MyDbNameClass.Client.TABLE_NAME_CLIENT,null,value)
         return if(Integer.parseInt("$success") != -1) 0 else 2
     }
-    fun inserProductToDb(name: String, price: Double): Int {
+    fun insertProductToDb(name: String, price: Double): Int {
         val products = readFromProduct
 
         while (products.moveToNext()) {
-            if(products.getString(0) == name && products.getString(1) == price.toString()){
+            if(products.getString(1) == name && products.getString(2) == price.toString()){
                 return 1
             }
         }
@@ -56,7 +56,7 @@ class DbManager(context: Context) {
 //        return Integer.parseInt("$success") != -1
 //    }
     fun updateClient(oldClient: String, newClient: String): Boolean{
-        val success1 = inserClientToDb(newClient)
+        val success1 = insertClientToDb(newClient)
         var success2 = false
         if(success1 == 0){
             success2 = deleteClient(oldClient)
@@ -65,7 +65,7 @@ class DbManager(context: Context) {
     }
     fun updateProduct(oldProduct: String, newProduct: Product): Boolean{
         var success2: Boolean = deleteProduct(oldProduct)
-        val success1 = inserProductToDb(newProduct.name,newProduct.price)
+        val success1 = insertProductToDb(newProduct.name,newProduct.price)
         return success1 == 0 && success2
     }
 

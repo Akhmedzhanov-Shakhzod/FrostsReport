@@ -39,7 +39,7 @@ class ChoseClientFragment : Fragment() {
         val clients = dbManager.readFromClient
 
         while (clients.moveToNext()) {
-            client_arrayList.add(Client(clients.getString(0)))
+            client_arrayList.add(Client(clients.getString(1)))
         }
         binding.listViewChoseClient.isClickable = true
         binding.listViewChoseClient.adapter = ClientAdapter(MAIN,client_arrayList)

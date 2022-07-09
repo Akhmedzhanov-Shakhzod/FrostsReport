@@ -11,12 +11,21 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context,MyDbNameClass.DATABA
 
         db?.execSQL(MyDbNameClass.SQL_CREATE_CLIENT)
         db?.execSQL(MyDbNameClass.SQL_CREATE_PRODUCT)
+        db?.execSQL(MyDbNameClass.SQL_CREATE_ORDER)
+        db?.execSQL(MyDbNameClass.SQL_CREATE_ORDER_PRODUCTS)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
 
+        db?.execSQL(MyDbNameClass.SQL_CREATE_CLIENT)
+        db?.execSQL(MyDbNameClass.SQL_CREATE_PRODUCT)
+        db?.execSQL(MyDbNameClass.SQL_CREATE_ORDER)
+        db?.execSQL(MyDbNameClass.SQL_CREATE_ORDER_PRODUCTS)
+
         db?.execSQL(MyDbNameClass.SQL_DELETE_CLIENT)
         db?.execSQL(MyDbNameClass.SQL_DELETE_PRODUCT)
+        db?.execSQL(MyDbNameClass.SQL_DELETE_ORDER)
+        db?.execSQL(MyDbNameClass.SQL_DELETE_ORDER_PRODUCTS)
 
         onCreate(db)
     }

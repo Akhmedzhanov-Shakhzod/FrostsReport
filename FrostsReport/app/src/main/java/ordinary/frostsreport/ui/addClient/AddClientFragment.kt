@@ -35,7 +35,7 @@ class AddClientFragment : Fragment() {
             val clientNameText = binding.addNameClient.text.toString()
             val count = clientNameText.trim(' ')
             if(count.isNotEmpty()) {
-                val iresult = dbManager.inserClientToDb(count)
+                val iresult = dbManager.insertClientToDb(count)
 
                 if (iresult == 0) {
                     MAIN.alert("${count} - добавлено")
