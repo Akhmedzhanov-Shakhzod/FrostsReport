@@ -39,7 +39,7 @@ class ChoseProductsFragment : Fragment() {
         val product = dbManager.readFromProduct
 
         while (product.moveToNext()) {
-            products_arrayList.add(Product(product.getString(0),product.getString(1).toDouble()))
+            products_arrayList.add(Product(product.getString(1),product.getString(2).toDouble()))
         }
 
         binding.listViewChoseProduct.isClickable = true

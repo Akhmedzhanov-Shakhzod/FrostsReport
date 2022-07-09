@@ -22,7 +22,7 @@ class DbManager(context: Context) {
         val clients = readFromClient
 
         while (clients.moveToNext()) {
-            if(clients.getString(0) == name){
+            if(clients.getString(1) == name){
                 return 1
             }
         }
@@ -36,7 +36,7 @@ class DbManager(context: Context) {
         val products = readFromProduct
 
         while (products.moveToNext()) {
-            if(products.getString(0) == name && products.getString(1) == price.toString()){
+            if(products.getString(1) == name && products.getString(2) == price.toString()){
                 return 1
             }
         }

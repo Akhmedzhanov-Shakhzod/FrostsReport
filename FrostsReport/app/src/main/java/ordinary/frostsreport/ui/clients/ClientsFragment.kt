@@ -37,7 +37,7 @@ class ClientsFragment : Fragment() {
         val clients = dbManager.readFromClient
 
         while (clients.moveToNext()) {
-            client_arrayList.add(Client(clients.getString(0)))
+            client_arrayList.add(Client(clients.getString(1)))
         }
         binding.listViewClient.isClickable = true
         binding.listViewClient.adapter = ClientAdapter(MAIN,client_arrayList)
