@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ordinary.frostsreport.R
@@ -14,11 +15,15 @@ import ordinary.frostsreport.ui.helper.CHOSENPRODUCTSDATAMODEL
 import ordinary.frostsreport.ui.helper.MAIN
 import ordinary.frostsreport.ui.helper.adapter.ChoseProductAdapter
 import ordinary.frostsreport.ui.helper.adapter.ClientAdapter
+import ordinary.frostsreport.ui.helper.db.DbManager
+import ordinary.frostsreport.ui.helper.items.Order
+import ordinary.frostsreport.ui.helper.items.OrederProducts
 
 class AddOrderFragment : Fragment() {
 
     private var _binding: FragmentAddOrderBinding? = null
 
+    private val dbManager = DbManager(MAIN)
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -100,10 +105,31 @@ class AddOrderFragment : Fragment() {
         }
         addOrder.setOnClickListener {
             if(choseShop.text.isNotEmpty() && CHOSENPRODUCTSDATAMODEL.product.isNotEmpty()){
-                CHOSENPRODUCTSDATAMODEL.client = ""
-                CHOSENPRODUCTSDATAMODEL.product.clear()
-                CHOSENPRODUCTSDATAMODEL.productAmount.clear()
-
+//                dbManager.openDb()
+//
+//                val order = Order(binding.textDate.text.toString(),
+//                    CHOSENPRODUCTSDATAMODEL.client,binding.amountText.text.toString().toDouble())
+//                val iresult = dbManager.insertOrderToDb(order)
+//
+////                val products = ArrayList<OrederProducts>()
+////                for(i in 0 until CHOSENPRODUCTSDATAMODEL.product.count()){
+////                    val op = OrederProducts(CHOSENPRODUCTSDATAMODEL.product[i].first.)
+////                }
+////                dbManager.readFromOrderProducts()
+//
+//
+//                if (iresult == 0) {
+//                    MAIN.alert("- добавлено")
+//                    CHOSENPRODUCTSDATAMODEL.client = ""
+//                    CHOSENPRODUCTSDATAMODEL.product.clear()
+//                    CHOSENPRODUCTSDATAMODEL.productAmount.clear()
+//                }
+//                else if (iresult == 1) {
+//                    MAIN.alert(" - уже существует :)", 1000)
+//                }
+//                else if (iresult == 2) {
+//                    MAIN.alert("Что-то пошло не так :(", 1000)
+//                }
 
                 findNavController().navigate(R.id.nav_add_order)
             }
@@ -127,6 +153,7 @@ class AddOrderFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        dbManager.closeDb()
     }
 }
 

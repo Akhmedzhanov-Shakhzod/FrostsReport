@@ -4,7 +4,8 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import ordinary.frostsreport.ui.helper.items.Client
+import ordinary.frostsreport.ui.helper.items.OrederProducts
+import ordinary.frostsreport.ui.helper.items.Order
 import ordinary.frostsreport.ui.helper.items.Product
 
 class DbManager(context: Context) {
@@ -47,6 +48,38 @@ class DbManager(context: Context) {
         val success = db?.insert(MyDbNameClass.Product.TABLE_NAME_PRODUCT,null,values)
         return if(Integer.parseInt("$success") != -1) 0 else 2
     }
+    fun insertOrderToDb(order: Order): Int {
+        val orders = readFromOrders
+
+        while (orders.moveToNext()) {
+            if(orders.getString(0).toInt() == order.orderId){
+                return 1
+            }
+        }
+        val values = ContentValues().apply {
+            put(MyDbNameClass.Orders.COLUMN_NAME_ORDER_DATE,order.orderDate)
+            put(MyDbNameClass.Orders.COLUMN_NAME_ORDER_CLIENT,order.orderClient)
+            put(MyDbNameClass.Orders.COLUMN_NAME_ORDER_AMOUNT,order.amount)
+        }
+        val success = db?.insert(MyDbNameClass.Orders.TABLE_NAME_ORDERS,null,values)
+        return if(Integer.parseInt("$success") != -1) 0 else 2
+    }
+    fun insertOrderProductToDb(orderProduct: OrederProducts): Int {
+        val orderProducts = readFromOrderProducts
+
+        while (orderProducts.moveToNext()) {
+            if(orderProducts.getString(0).toInt() == orderProduct.orderProductId){
+                return 1
+            }
+        }
+        val values = ContentValues().apply {
+            put(MyDbNameClass.OrderProducts.COLUMN_NAME_ORDER_ID,orderProduct.orderId)
+            put(MyDbNameClass.OrderProducts.COLUMN_NAME_PRODUCT_ID,orderProduct.productId)
+            put(MyDbNameClass.OrderProducts.COLUMN_NAME_PRODUCT_COUNT,orderProduct.productCount)
+        }
+        val success = db?.insert(MyDbNameClass.OrderProducts.TABLE_NAME_ORDER_PRODUCTS,null,values)
+        return if(Integer.parseInt("$success") != -1) 0 else 2
+    }
 
 //    fun update(oldItem: String, newItem: String): Boolean{
 //        val value = ContentValues().apply {
@@ -77,6 +110,16 @@ class DbManager(context: Context) {
     val readFromProduct : Cursor
     get() {
         val res = db!!.rawQuery("SELECT * FROM " + MyDbNameClass.Product.TABLE_NAME_PRODUCT, null)
+        return res
+    }
+    val readFromOrders : Cursor
+    get() {
+        val res = db!!.rawQuery("SELECT * FROM " + MyDbNameClass.Orders.TABLE_NAME_ORDERS, null)
+        return res
+    }
+    val readFromOrderProducts : Cursor
+    get() {
+        val res = db!!.rawQuery("SELECT * FROM " + MyDbNameClass.OrderProducts.TABLE_NAME_ORDER_PRODUCTS, null)
         return res
     }
 
