@@ -14,6 +14,8 @@ import ordinary.frostsreport.ui.helper.CHOSENPRODUCTSDATAMODEL
 import ordinary.frostsreport.ui.helper.MAIN
 import ordinary.frostsreport.ui.helper.adapter.ChoseProductAdapter
 import ordinary.frostsreport.ui.helper.adapter.ClientAdapter
+import ordinary.frostsreport.ui.helper.db.DbManager
+import ordinary.frostsreport.ui.helper.items.Order
 
 class AddOrderFragment : Fragment() {
 
@@ -100,10 +102,33 @@ class AddOrderFragment : Fragment() {
         }
         addOrder.setOnClickListener {
             if(choseShop.text.isNotEmpty() && CHOSENPRODUCTSDATAMODEL.product.isNotEmpty()){
-                CHOSENPRODUCTSDATAMODEL.client = ""
-                CHOSENPRODUCTSDATAMODEL.product.clear()
-                CHOSENPRODUCTSDATAMODEL.productAmount.clear()
+                val dbManager = DbManager(MAIN)
+                dbManager.openDb()
 
+                val order = Order(binding.textDate.text.toString(),
+                    CHOSENPRODUCTSDATAMODEL.client,binding.amountText.text.toString().toDouble())
+                val iresult = dbManager.insertOrderToDb(order)
+
+//                val products = ArrayList<OrederProducts>()
+//                for(i in 0 until CHOSENPRODUCTSDATAMODEL.product.count()){
+//                    val op = OrederProducts(CHOSENPRODUCTSDATAMODEL.product[i].first.)
+//                }
+//                dbManager.readFromOrderProducts()
+
+                if (iresult == 0) {
+                    MAIN.alert("- добавлено")
+                    CHOSENPRODUCTSDATAMODEL.client = ""
+                    CHOSENPRODUCTSDATAMODEL.product.clear()
+                    CHOSENPRODUCTSDATAMODEL.productAmount.clear()
+                }
+                else if (iresult == 1) {
+                    MAIN.alert(" - уже существует :)", 1000)
+                }
+                else if (iresult == 2) {
+                    MAIN.alert("Что-то пошло не так :(", 1000)
+                }
+
+                dbManager.closeDb()
 
                 findNavController().navigate(R.id.nav_add_order)
             }
