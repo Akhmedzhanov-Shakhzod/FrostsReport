@@ -124,6 +124,52 @@ class DbManager(context: Context) {
             return res
         }
 
+    fun getClientId(client: Client): Int {
+        val clients = readFromClient
+
+        while (clients.moveToNext()) {
+            if(clients.getString(1) == client.name){
+                return clients.getInt(0)
+            }
+        }
+        return -1
+    }
+    fun getProductId(product: Product): Int {
+        val products = readFromProduct
+
+        while (products.moveToNext()) {
+            if(products.getString(1) == product.name &&
+                products.getString(2).toDouble() == product.price){
+                return products.getInt(0)
+            }
+        }
+        return -1
+    }
+    fun getOrderId(order: Order): Int {
+        val orders = readFromOrders
+
+        while (orders.moveToNext()) {
+            if(orders.getString(1) == order.orderDate &&
+                    orders.getString(2) == order.orderClient &&
+                    orders.getString(3).toDouble() == order.amount){
+                return orders.getInt(0)
+            }
+        }
+        return -1
+    }
+    fun getOrderProductsId(orderProduct: OrederProducts): Int {
+        val orderProducts = readFromOrderProducts
+
+        while (orderProducts.moveToNext()) {
+            if(orderProducts.getInt(1) == orderProduct.orderId &&
+                    orderProducts.getInt(2) == orderProduct.productId &&
+                    orderProducts.getString(3).toDouble() == orderProduct.productCount){
+                return orderProducts.getInt(0)
+            }
+        }
+        return -1
+    }
+
     fun deleteClient(client: String): Boolean {
         val success = db!!.delete(MyDbNameClass.Client.TABLE_NAME_CLIENT, MyDbNameClass.Client.COLUMN_NAME_CLIENT_NAME + "=?", arrayOf(client))
         return Integer.parseInt("$success") != -1

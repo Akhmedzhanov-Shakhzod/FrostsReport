@@ -16,6 +16,8 @@ import ordinary.frostsreport.ui.helper.adapter.ChoseProductAdapter
 import ordinary.frostsreport.ui.helper.adapter.ClientAdapter
 import ordinary.frostsreport.ui.helper.db.DbManager
 import ordinary.frostsreport.ui.helper.items.Order
+import ordinary.frostsreport.ui.helper.items.OrederProducts
+import ordinary.frostsreport.ui.helper.items.Product
 
 class AddOrderFragment : Fragment() {
 
@@ -107,24 +109,33 @@ class AddOrderFragment : Fragment() {
 
                 val order = Order(binding.textDate.text.toString(),
                     CHOSENPRODUCTSDATAMODEL.client,binding.amountText.text.toString().toDouble())
-                val iresult = dbManager.insertOrderToDb(order)
+                var iresult1 = dbManager.insertOrderToDb(order)
+                var iresult2 = 0
 
-//                val products = ArrayList<OrederProducts>()
-//                for(i in 0 until CHOSENPRODUCTSDATAMODEL.product.count()){
-//                    val op = OrederProducts(CHOSENPRODUCTSDATAMODEL.product[i].first.)
-//                }
-//                dbManager.readFromOrderProducts()
+                val orderId = dbManager.getOrderId(order)
+                if(orderId == -1){
+                    iresult1 = 2
+                }
 
-                if (iresult == 0) {
-                    MAIN.alert("- добавлено")
+                for(i in 0 until CHOSENPRODUCTSDATAMODEL.product.count()){
+                    val productId = dbManager.getProductId(CHOSENPRODUCTSDATAMODEL.product[i].first)
+                    if(productId == -1) {
+                        iresult1 = 2
+                    }
+                    val op = OrederProducts(orderId,productId, CHOSENPRODUCTSDATAMODEL.product[i].second)
+                    iresult2 = dbManager.insertOrderProductToDb(op)
+                }
+
+                if (iresult1 == 0 && iresult2 == 0) {
+                    MAIN.alert("Заказ добавлен",1000)
                     CHOSENPRODUCTSDATAMODEL.client = ""
                     CHOSENPRODUCTSDATAMODEL.product.clear()
                     CHOSENPRODUCTSDATAMODEL.productAmount.clear()
                 }
-                else if (iresult == 1) {
-                    MAIN.alert(" - уже существует :)", 1000)
+                else if (iresult1 == 1 && iresult2 == 1) {
+                    MAIN.alert("этот заказ - уже существует :)", 1000)
                 }
-                else if (iresult == 2) {
+                else {
                     MAIN.alert("Что-то пошло не так :(", 1000)
                 }
 
