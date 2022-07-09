@@ -2,7 +2,7 @@ package ordinary.frostsreport.ui.helper.db
 
 
 object MyDbNameClass {
-    const val DATABASE_VERSION = 6
+    const val DATABASE_VERSION = 7
     const val DATABASE_NAME = "FrostsReport.db"
 
 /************************** TABLE CLIENT **********************/
@@ -48,13 +48,15 @@ object MyDbNameClass {
         const val COLUMN_NAME_ORDER_ID = "order_id"
         const val COLUMN_NAME_ORDER_DATE = "order_date"
         const val COLUMN_NAME_ORDER_CLIENT = "order_client"
+        const val COLUMN_NAME_ORDER_AMOUNT = "order_amount"
     }
 
     const val SQL_CREATE_ORDERS =
         "CREATE TABLE IF NOT EXISTS ${Orders.TABLE_NAME_ORDERS} (" +
                 "${Orders.COLUMN_NAME_ORDER_ID} INTEGER PRIMARY KEY," +
                 "${Orders.COLUMN_NAME_ORDER_DATE} TEXT," +
-                "${Orders.COLUMN_NAME_ORDER_CLIENT} TEXT)"
+                "${Orders.COLUMN_NAME_ORDER_CLIENT} TEXT" +
+                "${Orders.COLUMN_NAME_ORDER_AMOUNT} REAL)"
 
     const val SQL_DELETE_ORDERS = "DROP TABLE IF EXISTS ${Orders.TABLE_NAME_ORDERS}"
 
@@ -63,13 +65,15 @@ object MyDbNameClass {
         const val COLUMN_NAME_ORDER_PRODUCTS_ID = "order_products_id"
         const val COLUMN_NAME_ORDER_ID = "order_id"
         const val COLUMN_NAME_PRODUCT_ID = "product_id"
+        const val COLUMN_NAME_PRODUCT_COUNT = "product_count"
     }
 
     const val SQL_CREATE_ORDER_PRODUCTS =
         "CREATE TABLE IF NOT EXISTS ${OrderProducts.TABLE_NAME_ORDER_PRODUCTS} (" +
                 "${OrderProducts.COLUMN_NAME_ORDER_PRODUCTS_ID} INTEGER PRIMARY KEY," +
                 "${OrderProducts.COLUMN_NAME_ORDER_ID} INTEGER," +
-                "${OrderProducts.COLUMN_NAME_PRODUCT_ID} INTEGER)"
+                "${OrderProducts.COLUMN_NAME_PRODUCT_ID} INTEGER" +
+                "${OrderProducts.COLUMN_NAME_PRODUCT_COUNT} REAL)"
 
     const val SQL_DELETE_ORDER_PRODUCTS = "DROP TABLE IF EXISTS ${OrderProducts.TABLE_NAME_ORDER_PRODUCTS}"
 
