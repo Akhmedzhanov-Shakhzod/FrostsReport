@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_nav_orders_to_nav_add_order"
             app:destination="@id/nav_add_order" />
+        <action
+            android:id="@+id/action_nav_orders_to_orderProductsFragment"
+            app:destination="@id/orderProductsFragment" />
     </fragment>
     <fragment
         android:id="@+id/nav_add_client"
@@ -114,6 +117,16 @@
         <argument android:name="product_price" />
         <argument android:name="product_name" />
         <argument android:name="product_count" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderProductsFragment"
+        android:name="ordinary.frostsreport.ui.orders.OrderProductsFragment"
+        android:label="@string/menu_orders"
+        tools:layout="@layout/fragment_order_products" >
+        <argument android:name="orderId" />
+        <argument android:name="clientName" />
+        <argument android:name="orderAmount" />
+        <argument android:name="orderDate" />
     </fragment>
 
 </navigation>

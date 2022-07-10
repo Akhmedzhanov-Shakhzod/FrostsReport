@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import ordinary.frostsreport.R
 import ordinary.frostsreport.databinding.FragmentOrdersBinding
 import ordinary.frostsreport.ui.helper.MAIN
@@ -134,7 +135,14 @@ class OrdersFragment : Fragment() {
         listViewOrders.setOnItemClickListener { parent, view, position, id ->
             listViewOrders.getItemAtPosition(position)
 
+            val bundle = Bundle()
 
+            bundle.putString("orderId",orders_arraylist[position].orderId.toString())
+            bundle.putString("clientName",orders_arraylist[position].orderClient.toString())
+            bundle.putString("orderAmount",orders_arraylist[position].amount.toString())
+            bundle.putString("orderDate",orders_arraylist[position].orderDate.toString())
+
+            findNavController().navigate(R.id.orderProductsFragment,bundle)
         }
 
 

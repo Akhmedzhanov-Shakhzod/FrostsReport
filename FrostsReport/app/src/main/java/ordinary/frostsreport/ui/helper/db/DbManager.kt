@@ -175,6 +175,14 @@ class DbManager(context: Context) {
         val success = db!!.delete(MyDbNameClass.Product.TABLE_NAME_PRODUCT, MyDbNameClass.Product.COLUMN_NAME_PRODUCT_NAME + "=?", arrayOf(product))
         return Integer.parseInt("$success") != -1
     }
+    fun deleteOrders(orderId: Int): Boolean {
+        val success = db!!.delete(MyDbNameClass.Orders.TABLE_NAME_ORDERS, MyDbNameClass.Orders.COLUMN_NAME_ORDER_ID + "=?", arrayOf(orderId.toString()))
+        return Integer.parseInt("$success") != -1
+    }
+    fun deleteOrderProducts(orderProductId: Int): Boolean {
+        val success = db!!.delete(MyDbNameClass.OrderProducts.TABLE_NAME_ORDER_PRODUCTS, MyDbNameClass.OrderProducts.COLUMN_NAME_ORDER_PRODUCTS_ID + "=?", arrayOf(orderProductId.toString()))
+        return Integer.parseInt("$success") != -1
+    }
 
 
     fun clearOrders(): Boolean {
@@ -192,12 +200,19 @@ class DbManager(context: Context) {
 
         while (allOP.moveToNext()){
             if(allOP.getInt(1) == orderId){
-                val p = db!!.rawQuery("SELECT ${MyDbNameClass.Product.COLUMN_NAME_PRODUCT_NAME}," +
-                        " ${MyDbNameClass.Product.COLUMN_NAME_PRODUCT_PRICE} FROM " +
-                        MyDbNameClass.Product.TABLE_NAME_PRODUCT, null)
-                val product = Product(p.getString(1),p.getDouble(2))
-                val pair = OrderProduct(product,allOP.getDouble(3))
-                op.add(pair)
+                val columns = Array<String?>(3) { null }
+                columns[0] = MyDbNameClass.Product.COLUMN_NAME_PRODUCT_ID
+                columns[1] = MyDbNameClass.Product.COLUMN_NAME_PRODUCT_NAME
+                columns[2] = MyDbNameClass.Product.COLUMN_NAME_PRODUCT_PRICE
+
+                val p = db!!.query(MyDbNameClass.Product.TABLE_NAME_PRODUCT, columns,
+                    MyDbNameClass.Product.COLUMN_NAME_PRODUCT_ID + " = ${allOP.getString(2)}", null, null, null, null, null)
+
+                while (p.moveToNext()){
+                    val product = Product(p.getString(1),p.getDouble(2))
+                    val pair = OrderProduct(product,allOP.getDouble(3),allOP.getInt(0))
+                    op.add(pair)
+                }
             }
         }
         return op
