@@ -102,22 +102,26 @@ class DbManager(context: Context) {
 
     val readFromClient : Cursor
     get() {
-        val res = db!!.rawQuery("SELECT * FROM " + MyDbNameClass.Client.TABLE_NAME_CLIENT, null)
+        val res = db!!.rawQuery("SELECT * FROM " + MyDbNameClass.Client.TABLE_NAME_CLIENT +
+                " ORDER BY " + MyDbNameClass.Client.COLUMN_NAME_CLIENT_NAME, null)
         return res
     }
     val readFromProduct : Cursor
     get() {
-        val res = db!!.rawQuery("SELECT * FROM " + MyDbNameClass.Product.TABLE_NAME_PRODUCT, null)
+        val res = db!!.rawQuery("SELECT * FROM " + MyDbNameClass.Product.TABLE_NAME_PRODUCT +
+                " ORDER BY " + MyDbNameClass.Product.COLUMN_NAME_PRODUCT_NAME, null)
         return res
     }
     val readFromOrders : Cursor
         get() {
-            val res = db!!.rawQuery("SELECT * FROM " + MyDbNameClass.Orders.TABLE_NAME_ORDERS, null)
+            val res = db!!.rawQuery("SELECT * FROM " + MyDbNameClass.Orders.TABLE_NAME_ORDERS +
+                    " ORDER BY " + MyDbNameClass.Orders.COLUMN_NAME_ORDER_ID + " DESC", null)
             return res
         }
     val readFromOrderProducts : Cursor
         get() {
-            val res = db!!.rawQuery("SELECT * FROM " + MyDbNameClass.OrderProducts.TABLE_NAME_ORDER_PRODUCTS, null)
+            val res = db!!.rawQuery("SELECT * FROM " + MyDbNameClass.OrderProducts.TABLE_NAME_ORDER_PRODUCTS +
+                    " ORDER BY " + MyDbNameClass.OrderProducts.COLUMN_NAME_ORDER_ID + " DESC", null)
             return res
         }
 
