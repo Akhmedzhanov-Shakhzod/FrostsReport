@@ -4,10 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import ordinary.frostsreport.ui.helper.items.Client
-import ordinary.frostsreport.ui.helper.items.Order
-import ordinary.frostsreport.ui.helper.items.OrederProducts
-import ordinary.frostsreport.ui.helper.items.Product
+import ordinary.frostsreport.ui.helper.items.*
 
 class DbManager(context: Context) {
     val dbHelper = DbHelper(context)
@@ -177,6 +174,33 @@ class DbManager(context: Context) {
     fun deleteProduct(product: String): Boolean {
         val success = db!!.delete(MyDbNameClass.Product.TABLE_NAME_PRODUCT, MyDbNameClass.Product.COLUMN_NAME_PRODUCT_NAME + "=?", arrayOf(product))
         return Integer.parseInt("$success") != -1
+    }
+
+
+    fun clearOrders(): Boolean {
+        val success = db!!.delete(MyDbNameClass.Orders.TABLE_NAME_ORDERS, null,null)
+        return Integer.parseInt("$success") != -1
+    }
+    fun clearOrderProducts(): Boolean {
+        val success = db!!.delete(MyDbNameClass.OrderProducts.TABLE_NAME_ORDER_PRODUCTS, null,null)
+        return Integer.parseInt("$success") != -1
+    }
+
+    fun getOrderProducts(orderId: Int): ArrayList<OrderProduct> {
+        val allOP = readFromOrderProducts
+        val op = ArrayList<OrderProduct>()
+
+        while (allOP.moveToNext()){
+            if(allOP.getInt(1) == orderId){
+                val p = db!!.rawQuery("SELECT ${MyDbNameClass.Product.COLUMN_NAME_PRODUCT_NAME}," +
+                        " ${MyDbNameClass.Product.COLUMN_NAME_PRODUCT_PRICE} FROM " +
+                        MyDbNameClass.Product.TABLE_NAME_PRODUCT, null)
+                val product = Product(p.getString(1),p.getDouble(2))
+                val pair = OrderProduct(product,allOP.getDouble(3))
+                op.add(pair)
+            }
+        }
+        return op
     }
 }
 

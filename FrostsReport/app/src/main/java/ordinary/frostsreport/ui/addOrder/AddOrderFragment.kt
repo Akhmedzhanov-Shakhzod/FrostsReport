@@ -127,7 +127,7 @@ class AddOrderFragment : Fragment() {
                 }
 
                 if (iresult1 == 0 && iresult2 == 0) {
-                    MAIN.alert("Заказ добавлен",1000)
+                    MAIN.alert("Заказ №$orderId добавлен",1000)
                     CHOSENPRODUCTSDATAMODEL.client = ""
                     CHOSENPRODUCTSDATAMODEL.product.clear()
                     CHOSENPRODUCTSDATAMODEL.productAmount.clear()
