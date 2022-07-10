@@ -31,6 +31,7 @@ class AddProductFragment : Fragment() {
 
         dbManager.openDb()
 
+        binding.editNameProduct.requestFocus()
         binding.addPoduct.setOnClickListener {
             val productNameText = binding.editNameProduct.text.toString()
             val productPriceText = binding.editPriceProduct.text.toString()

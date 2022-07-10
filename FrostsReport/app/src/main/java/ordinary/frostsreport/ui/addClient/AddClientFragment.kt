@@ -31,6 +31,7 @@ class AddClientFragment : Fragment() {
 
         dbManager.openDb()
 
+        binding.addNameClient.requestFocus()
         binding.addClient.setOnClickListener {
             val clientNameText = binding.addNameClient.text.toString()
             val count = clientNameText.trim(' ')

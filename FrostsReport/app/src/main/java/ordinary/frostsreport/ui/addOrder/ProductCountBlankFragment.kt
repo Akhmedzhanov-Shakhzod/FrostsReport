@@ -34,6 +34,8 @@ class ProductCountBlankFragment : Fragment() {
         val product_amount = view.findViewById<TextView>(R.id.product_amount)
         val coninue = view.findViewById<Button>(R.id.save_count_product)
 
+        product_count.requestFocus()
+
         val name = arguments?.getString("product_name").toString()
         val price = arguments?.getString("product_price").toString()
         var count:Double = 1.0

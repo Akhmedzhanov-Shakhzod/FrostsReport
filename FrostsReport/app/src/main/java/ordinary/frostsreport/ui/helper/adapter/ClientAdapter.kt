@@ -8,8 +8,9 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import ordinary.frostsreport.R
 import ordinary.frostsreport.ui.helper.items.Client
+import ordinary.frostsreport.ui.helper.items.Product
 
-class ClientAdapter(private val context: Activity, private val clients: ArrayList<Client>):
+class ClientAdapter(private val context: Activity, private val clients: List<Client>):
     ArrayAdapter<Client>(context, R.layout.client_item, clients) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
