@@ -20,5 +20,9 @@
             android:id="@+id/nav_orders"
             android:icon="@drawable/orders"
             android:title="@string/menu_orders" />
+        <item
+            android:id="@+id/nav_report"
+            android:icon="@drawable/report"
+            android:title="@string/report" />
     </group>
 </menu>

@@ -128,5 +128,10 @@
         <argument android:name="orderAmount" />
         <argument android:name="orderDate" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_report"
+        android:name="ordinary.frostsreport.Report"
+        android:label="@string/report"
+        tools:layout="@layout/fragment_report" />
 
 </navigation>

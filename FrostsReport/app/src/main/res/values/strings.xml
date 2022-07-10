@@ -116,4 +116,5 @@
     <string name="clear">Очистить</string>
     <string name="chose_shop">Выбрать магазин</string>
     <string name="add_product">добавить продукт</string>
+    <string name="report">Отчет</string>
 </resources>
