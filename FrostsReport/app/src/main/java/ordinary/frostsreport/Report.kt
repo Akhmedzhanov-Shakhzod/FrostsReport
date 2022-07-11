@@ -49,7 +49,11 @@ class Report : Fragment() {
 //        var hour = calendar.get(Calendar.HOUR_OF_DAY)
 //        val minute = calendar.get(Calendar.MINUTE)
 
-
+        startDate = formatter.parse("$day/${month + 1}/$year") as Date
+        endDate = formatter.parse("$day/${month + 1}/$year") as Date
+        textStartDate?.text = "$day/${month + 1}/$year"
+        textEndDate?.text = "$day/${month + 1}/$year"
+        
         buttonStartDate?.setOnClickListener {
             val dpd = DatePickerDialog(
                 MAIN,
