@@ -11,19 +11,24 @@ import android.view.ViewGroup
 import ordinary.frostsreport.databinding.FragmentOrdersBinding
 import ordinary.frostsreport.databinding.FragmentReportBinding
 import ordinary.frostsreport.ui.helper.MAIN
+import ordinary.frostsreport.ui.helper.adapter.ReportAdapter
 import ordinary.frostsreport.ui.helper.db.DbManager
+import ordinary.frostsreport.ui.helper.items.Order
+import ordinary.frostsreport.ui.helper.items.OrderProduct
 import java.text.SimpleDateFormat
 import java.util.*
 
 class Report : Fragment() {
 
-    private lateinit var viewModel: ReportViewModel
     private var binding: FragmentReportBinding? = null
 
     private val dbManager = DbManager(MAIN)
     private val formatter = SimpleDateFormat("dd/MM/yyyy")
     private var startDate: Date? = null
     private var endDate: Date? = null
+    private val orderSummaryArrayList = ArrayList<Order>()
+    private val orderProducts = HashMap<Int,ArrayList<OrderProduct>>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,8 +55,9 @@ class Report : Fragment() {
                 DatePickerDialog.OnDateSetListener { view, mYear, mMonth, mDay ->
                     textStartDate?.text = "$mDay/${mMonth + 1}/$mYear"
                     startDate = formatter.parse(textStartDate?.text.toString()) as Date
-//                    orders_arraylist.clear()
-//                    onViewCreated(root,null)
+                    orderSummaryArrayList.clear()
+                    orderProducts.clear()
+                    onViewCreated(binding?.root as View,null)
                 },
                 year,
                 month,
@@ -66,8 +72,9 @@ class Report : Fragment() {
                 DatePickerDialog.OnDateSetListener { view, mYear, mMonth, mDay ->
                     textEndDate?.text = "$mDay/${mMonth + 1}/$mYear"
                     endDate = formatter.parse(textEndDate?.text.toString()) as Date
-//                    orders_arraylist.clear()
-//                    onViewCreated(root,null)
+                    orderSummaryArrayList.clear()
+                    orderProducts.clear()
+                    onViewCreated(binding?.root as View,null)
                 },
                 year,
                 month,
@@ -79,10 +86,64 @@ class Report : Fragment() {
         return binding?.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ReportViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        showList()
+        val eListView = binding?.eListView
+        eListView?.setAdapter(ReportAdapter(MAIN,orderSummaryArrayList,orderProducts))
+
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        dbManager.closeDb()
+        orderSummaryArrayList.clear()
+        orderProducts.clear()
+    }
+    private fun showList() {
+        dbManager.openDb()
+
+        val orders = dbManager.readFromOrders
+
+        while (orders.moveToNext()) {
+            val orderDate = formatter.parse(orders.getString(1)) as Date
+            if(startDate == null && endDate == null) {
+                orderSummaryArrayList.add(Order(orders.getString(1),orders.getString(2),
+                    orders.getDouble(3),orders.getInt(0)))
+                loadOrderProducts(orders.getInt(0))
+            }
+            else if(startDate != null && endDate != null){
+                if(orderDate >= startDate && orderDate <= endDate){
+                    orderSummaryArrayList.add(Order(orders.getString(1),orders.getString(2),
+                        orders.getDouble(3),orders.getInt(0)))
+                    loadOrderProducts(orders.getInt(0))
+                }
+            }
+            else if (startDate != null){
+                if(orderDate >= startDate){
+                    orderSummaryArrayList.add(Order(orders.getString(1),orders.getString(2),
+                        orders.getDouble(3),orders.getInt(0)))
+                    loadOrderProducts(orders.getInt(0))
+                }
+            }
+            else if (endDate != null){
+                if(orderDate <= endDate) {
+                    orderSummaryArrayList.add(Order(orders.getString(1),orders.getString(2),
+                        orders.getDouble(3),orders.getInt(0)))
+                    loadOrderProducts(orders.getInt(0))
+                }
+            }
+        }
+
+
+        dbManager.closeDb()
+    }
+    fun loadOrderProducts(orderId: Int) {
+        dbManager.openDb()
+
+        orderProducts[orderId] = dbManager.getOrderProducts(orderId)
+
+        dbManager.closeDb()
+    }
 }
