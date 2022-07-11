@@ -26,6 +26,7 @@ class Report : Fragment() {
     private val formatter = SimpleDateFormat("dd/MM/yyyy")
     private var startDate: Date? = null
     private var endDate: Date? = null
+    private var reportAmount: Double = 0.0
     private val orderSummaryArrayList = ArrayList<Order>()
     private val orderProducts = HashMap<Int,ArrayList<OrderProduct>>()
 
@@ -57,6 +58,7 @@ class Report : Fragment() {
                     startDate = formatter.parse(textStartDate?.text.toString()) as Date
                     orderSummaryArrayList.clear()
                     orderProducts.clear()
+                    reportAmount = 0.0
                     onViewCreated(binding?.root as View,null)
                 },
                 year,
@@ -74,6 +76,7 @@ class Report : Fragment() {
                     endDate = formatter.parse(textEndDate?.text.toString()) as Date
                     orderSummaryArrayList.clear()
                     orderProducts.clear()
+                    reportAmount = 0.0
                     onViewCreated(binding?.root as View,null)
                 },
                 year,
@@ -100,10 +103,12 @@ class Report : Fragment() {
         dbManager.closeDb()
         orderSummaryArrayList.clear()
         orderProducts.clear()
+        reportAmount = 0.0
     }
     private fun showList() {
         dbManager.openDb()
 
+        val amount = binding?.reportAmount
         val orders = dbManager.readFromOrders
 
         while (orders.moveToNext()) {
@@ -112,12 +117,14 @@ class Report : Fragment() {
                 orderSummaryArrayList.add(Order(orders.getString(1),orders.getString(2),
                     orders.getDouble(3),orders.getInt(0)))
                 loadOrderProducts(orders.getInt(0))
+                reportAmount += orders.getDouble(3)
             }
             else if(startDate != null && endDate != null){
                 if(orderDate >= startDate && orderDate <= endDate){
                     orderSummaryArrayList.add(Order(orders.getString(1),orders.getString(2),
                         orders.getDouble(3),orders.getInt(0)))
                     loadOrderProducts(orders.getInt(0))
+                    reportAmount += orders.getDouble(3)
                 }
             }
             else if (startDate != null){
@@ -125,6 +132,7 @@ class Report : Fragment() {
                     orderSummaryArrayList.add(Order(orders.getString(1),orders.getString(2),
                         orders.getDouble(3),orders.getInt(0)))
                     loadOrderProducts(orders.getInt(0))
+                    reportAmount += orders.getDouble(3)
                 }
             }
             else if (endDate != null){
@@ -132,10 +140,11 @@ class Report : Fragment() {
                     orderSummaryArrayList.add(Order(orders.getString(1),orders.getString(2),
                         orders.getDouble(3),orders.getInt(0)))
                     loadOrderProducts(orders.getInt(0))
+                    reportAmount += orders.getDouble(3)
                 }
             }
         }
-
+        amount?.text = reportAmount.toString()
 
         dbManager.closeDb()
     }
