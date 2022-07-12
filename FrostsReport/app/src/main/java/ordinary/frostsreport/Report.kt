@@ -100,6 +100,9 @@ class Report : Fragment() {
 
         val uploadPdfButton = binding?.uploadButton
 
+        uploadPdfButton?.setOnClickListener {
+            MAIN.alert("Возможна дальнейшее добавление функции импорт в пдф",1500)
+        }
     }
 
     override fun onDestroy() {
