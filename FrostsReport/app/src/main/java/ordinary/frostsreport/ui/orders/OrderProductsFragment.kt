@@ -45,17 +45,18 @@ class OrderProductsFragment : Fragment() {
         val orderAmount = view.findViewById<TextView>(R.id.order_amount)
         val orderDate = view.findViewById<TextView>(R.id.order_date)
 
-        orderId.text = arguments?.getString("orderId").toString()
+        val orderID = arguments?.getString("orderId")
+        orderId.text = "№" + orderID.toString()
         clientName.text = arguments?.getString("clientName").toString()
         orderAmount.text = arguments?.getString("orderAmount").toString()
         orderDate.text = arguments?.getString("orderDate").toString()
 
-        val products = dbManager.getOrderProducts(orderId.text.toString().toInt())
+        val products = dbManager.getOrderProducts(orderID!!.toInt())
 
         list_view_order_products.adapter = OrderProductsAdapter(MAIN,products)
 
         delete.setOnClickListener {
-            if(dbManager.deleteOrders(orderId.text.toString().toInt())){
+            if(dbManager.deleteOrders(orderID.toInt())){
                 var success = true
                 for(i in 0 until products.count()) {
                     success = dbManager.deleteOrderProducts(products[i].id!!)

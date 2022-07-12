@@ -8,11 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import ordinary.frostsreport.databinding.FragmentReportBinding
+import ordinary.frostsreport.ui.helper.Common
 import ordinary.frostsreport.ui.helper.MAIN
 import ordinary.frostsreport.ui.helper.adapter.ReportAdapter
 import ordinary.frostsreport.ui.helper.db.DbManager
 import ordinary.frostsreport.ui.helper.items.Order
 import ordinary.frostsreport.ui.helper.items.OrderProduct
+import java.io.FileWriter
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -102,6 +104,8 @@ class Report : Fragment() {
 
         uploadPdfButton?.setOnClickListener {
             MAIN.alert("Возможна дальнейшее добавление функции импорт в пдф",1500)
+//            writeToFile("Cool")
+
         }
     }
 
@@ -132,6 +136,10 @@ class Report : Fragment() {
                         orders.getDouble(3),orders.getInt(0)))
                     loadOrderProducts(orders.getInt(0))
                     reportAmount += orders.getDouble(3)
+
+//                    writeToFile("№${orders.getInt(0)}  ${orders.getString(1)} " +
+//                            "${orders.getString(2)} ${orders.getString(3)}")
+
                 }
             }
             else if (startDate != null){
@@ -161,5 +169,17 @@ class Report : Fragment() {
         orderProducts[orderId] = dbManager.getOrderProducts(orderId)
 
         dbManager.closeDb()
+    }
+    fun writeToFile(text: String) {
+        try {
+            val fPath = Common.getAppPath(MAIN) + "test.txt"
+            val f = FileWriter(fPath,true)
+            f.write(text)
+            f.close()
+            MAIN.alert("Success",1000)
+        }
+        catch (e: Exception) {
+            MAIN.alert(e.message.toString(),3000)
+        }
     }
 }
