@@ -2,13 +2,11 @@ package ordinary.frostsreport
 
 import android.app.DatePickerDialog
 import android.icu.util.Calendar
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import ordinary.frostsreport.databinding.FragmentOrdersBinding
 import ordinary.frostsreport.databinding.FragmentReportBinding
 import ordinary.frostsreport.ui.helper.MAIN
 import ordinary.frostsreport.ui.helper.adapter.ReportAdapter
@@ -99,6 +97,8 @@ class Report : Fragment() {
         showList()
         val eListView = binding?.eListView
         eListView?.setAdapter(ReportAdapter(MAIN,orderSummaryArrayList,orderProducts))
+
+        val uploadPdfButton = binding?.uploadButton
 
     }
 
