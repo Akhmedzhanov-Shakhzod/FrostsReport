@@ -126,7 +126,9 @@ class Report : Fragment() {
             .withPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
             .withListener(object: PermissionListener {
                 override fun onPermissionGranted(response: PermissionGrantedResponse?) {
-
+                    uploadPDF?.setOnClickListener {
+                        createPdfFile(Common.getAppPath(MAIN) + file_name)
+                    }
                 }
 
                 override fun onPermissionDenied(response: PermissionDeniedResponse?) {
@@ -138,10 +140,6 @@ class Report : Fragment() {
                 ) {
                 }
             })
-        uploadPDF?.setOnClickListener {
-            createPdfFile(Common.getAppPath(MAIN) + file_name)
-        }
-
     }
 
     override fun onDestroy() {
