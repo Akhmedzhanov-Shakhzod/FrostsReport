@@ -12,13 +12,11 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import ordinary.frostsreport.databinding.ActivityMainBinding
 import ordinary.frostsreport.ui.helper.MAIN
 import ordinary.frostsreport.ui.helper.db.DbManager
-import ordinary.frostsreport.ui.helper.items.Product
 
 class MainActivity : AppCompatActivity() {
 
