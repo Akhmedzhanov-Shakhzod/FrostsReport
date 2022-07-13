@@ -38,15 +38,15 @@ class ProductCountBlankFragment : Fragment() {
 
         val name = arguments?.getString("product_name").toString()
         val price = arguments?.getString("product_price").toString()
-        var count:Double = 1.0
+        var count:Double = 0.0
 
         product_name.text = name
         product_price.text = price
-        product_count.setText(count.toString())
+        product_count.setText("")
 
         product_count.isSelected = true
 
-        var amount:Double = price.toDouble() * product_count.text.toString().toDouble()
+        var amount:Double = price.toDouble() * count
 
         product_amount.text = amount.toString()
 
@@ -59,12 +59,14 @@ class ProductCountBlankFragment : Fragment() {
         }
 
         coninue.setOnClickListener {
-            val product = Product(name,price.toDouble())
+            if(product_count.text != null && product_count.text.toString() != "") {
+                val product = Product(name,price.toDouble())
 
-            val pair = Pair(product,count)
-            CHOSENPRODUCTSDATAMODEL.product.add(pair)
-            CHOSENPRODUCTSDATAMODEL.productAmount.add(amount)
-            findNavController().navigate(R.id.nav_add_order)
+                val pair = Pair(product,count)
+                CHOSENPRODUCTSDATAMODEL.product.add(pair)
+                CHOSENPRODUCTSDATAMODEL.productAmount.add(amount)
+                findNavController().navigate(R.id.nav_add_order)
+            }
         }
     }
 
