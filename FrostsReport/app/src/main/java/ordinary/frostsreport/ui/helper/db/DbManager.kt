@@ -188,7 +188,6 @@ class DbManager(context: Context) {
         return Integer.parseInt("$success") != -1
     }
 
-
     fun clearOrders(): Boolean {
         val success = db!!.delete(MyDbNameClass.Orders.TABLE_NAME_ORDERS, null,null)
         return Integer.parseInt("$success") != -1

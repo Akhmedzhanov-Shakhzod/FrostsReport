@@ -1,6 +1,8 @@
 package ordinary.frostsreport.ui.clients
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.content.DialogInterface
 import android.icu.util.Calendar
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -104,12 +106,61 @@ class Report : Fragment() {
         eListView?.setAdapter(ClientsOrdersReportAdapter(MAIN,orderSummaryArrayList,orderProducts))
 
         val uploadPdfButton = binding?.uploadButton
+        val clearOrders = binding?.clearOrders
 
         uploadPdfButton?.setOnClickListener {
             MAIN.alert("Возможна дальнейшее добавление функции импорт в пдф",1500)
 //            writeToFile("Cool")
 
         }
+
+        clearOrders?.setOnClickListener {
+            val dialogBuilder = AlertDialog.Builder(MAIN)
+            // create dialog box
+            dialogBuilder.setMessage("Уверены что хотите удалить все заказы данного магазина ?!")
+                .setCancelable(false)
+                // positive button text and action
+                .setPositiveButton("Да", DialogInterface.OnClickListener {
+                        dialog, id ->
+                    try {
+                        dbManager.openDb()
+                        for(i in 0 until orderSummaryArrayList.count()) {
+                            val orderId = orderSummaryArrayList[i].orderId!!
+                            dbManager.deleteOrders(orderId)
+                            for (j in 0 until (orderProducts[orderId]?.count() ?: 0)) {
+                                orderProducts[orderId]?.get(j)?.id?.let { it ->
+                                    dbManager.deleteOrderProducts(
+                                        it
+                                    )
+                                }
+                            }
+                        }
+
+                        orderSummaryArrayList.clear()
+                        orderProducts.clear()
+                        reportAmount = 0.0
+                        binding?.reportAmount?.text = reportAmount.toString()
+                        eListView?.setAdapter(ClientsOrdersReportAdapter(MAIN,orderSummaryArrayList,orderProducts))
+                    }
+                    catch (e: Exception) {
+                        MAIN.alert("Что-то пошло не так :(" +
+                                "${e.message}",5000)
+                        dialog.cancel()
+                    }
+                    finally {
+                        dbManager.closeDb()
+                    }
+                })
+                // negative button text and action
+                .setNegativeButton("Отменить", DialogInterface.OnClickListener {
+                        dialog, id -> dialog.cancel()
+                })
+            val alert = dialogBuilder.create()
+            // show alert dialog
+            alert.show()
+            //alert.cancel()
+        }
+
     }
 
     override fun onDestroy() {

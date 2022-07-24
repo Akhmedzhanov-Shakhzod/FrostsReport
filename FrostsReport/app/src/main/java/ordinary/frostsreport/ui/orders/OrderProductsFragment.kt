@@ -62,15 +62,15 @@ class OrderProductsFragment : Fragment() {
                     success = dbManager.deleteOrderProducts(products[i].id!!)
                 }
                 if(success) {
-                    MAIN.alert("Заказ №${orderId.text} - удалено",1000)
+                    MAIN.alert("Заказ ${orderId.text} - удалено",1000)
                     findNavController().navigate(R.id.nav_orders)
                 }
                 else {
-                    MAIN.alert("Не получилось удалить заказ №${orderId.text}",1000)
+                    MAIN.alert("Не получилось удалить заказ ${orderId.text}",1000)
                 }
             }
             else {
-                MAIN.alert("Не получилось удалить заказ №${orderId.text}",1000)
+                MAIN.alert("Не получилось удалить заказ ${orderId.text}",1000)
             }
         }
 
