@@ -48,13 +48,22 @@ class ClientsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val bundle = Bundle()
 
-        binding.listViewClient.setOnItemClickListener { parent, view, position, id ->
+        binding.listViewClient.setOnItemLongClickListener { parent, view, position, id ->
 
             val name:String = client_arrayList[position].name
 
             bundle.putString("client_name", name)
 
             findNavController().navigate(R.id.blankClientFragment, bundle)
+            return@setOnItemLongClickListener true
+        }
+
+        binding.listViewClient.setOnItemClickListener { parent, view, position, id ->
+            val name:String = client_arrayList[position].name
+
+            bundle.putString("client_name", name)
+
+            findNavController().navigate(R.id.report_clients_orders, bundle)
         }
     }
     override fun onDestroyView() {

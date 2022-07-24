@@ -221,6 +221,17 @@ class DbManager(context: Context) {
         }
         return op
     }
+    fun getClientOrders(client: String): ArrayList<Order> {
+        var allOrders = readFromOrders
+        var clientOrders = ArrayList<Order>()
+
+        while (allOrders.moveToNext()) {
+            if(allOrders.getString(2) == client) {
+                clientOrders.add(Order(allOrders.getString(1),client,allOrders.getDouble(3),allOrders.getInt(0)))
+            }
+        }
+        return  clientOrders
+    }
 }
 
 

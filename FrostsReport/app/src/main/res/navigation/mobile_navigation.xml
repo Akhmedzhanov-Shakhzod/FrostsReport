@@ -56,6 +56,9 @@
         <action
             android:id="@+id/action_nav_clients_to_nav_add_client"
             app:destination="@id/nav_add_client" />
+        <action
+            android:id="@+id/action_nav_clients_to_report"
+            app:destination="@id/report_clients_orders" />
     </fragment>
     <fragment
         android:id="@+id/blankProductFragment"
@@ -133,5 +136,12 @@
         android:name="ordinary.frostsreport.Report"
         android:label="@string/report"
         tools:layout="@layout/fragment_report" />
+    <fragment
+        android:id="@+id/report_clients_orders"
+        android:name="ordinary.frostsreport.ui.clients.Report"
+        android:label="@string/menu_clients"
+        tools:layout="@layout/fragment_report_clients_orders" >
+        <argument android:name="client_name" />
+    </fragment>
 
 </navigation>

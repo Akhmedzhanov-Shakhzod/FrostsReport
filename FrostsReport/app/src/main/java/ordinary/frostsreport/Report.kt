@@ -163,7 +163,7 @@ class Report : Fragment() {
 
         dbManager.closeDb()
     }
-    fun loadOrderProducts(orderId: Int) {
+    private fun loadOrderProducts(orderId: Int) {
         dbManager.openDb()
 
         orderProducts[orderId] = dbManager.getOrderProducts(orderId)
