@@ -13,6 +13,7 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context,MyDbNameClass.DATABA
         db?.execSQL(MyDbNameClass.SQL_CREATE_PRODUCT)
         db?.execSQL(MyDbNameClass.SQL_CREATE_ORDERS)
         db?.execSQL(MyDbNameClass.SQL_CREATE_ORDER_PRODUCTS)
+        db?.execSQL(MyDbNameClass.SQL_CREATE_SPENDING)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
@@ -21,6 +22,7 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context,MyDbNameClass.DATABA
         db?.execSQL(MyDbNameClass.SQL_DELETE_PRODUCT)
         db?.execSQL(MyDbNameClass.SQL_DELETE_ORDERS)
         db?.execSQL(MyDbNameClass.SQL_DELETE_ORDER_PRODUCTS)
+        db?.execSQL(MyDbNameClass.SQL_DELETE_SPENDING)
 
         onCreate(db)
     }

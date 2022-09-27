@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase
 import ordinary.frostsreport.ui.helper.items.*
 
 class DbManager(context: Context) {
-    val dbHelper = DbHelper(context)
+    private val dbHelper = DbHelper(context)
     var db: SQLiteDatabase? = null
 
     fun openDb(){
@@ -17,7 +17,7 @@ class DbManager(context: Context) {
         dbHelper.close()
     }
 
-    fun inserClientToDb(name: String): Int {
+    fun insertClientToDb(name: String): Int {
         val clients = readFromClient
 
         while (clients.moveToNext()) {
@@ -31,7 +31,7 @@ class DbManager(context: Context) {
         val success = db?.insert(MyDbNameClass.Client.TABLE_NAME_CLIENT,null,value)
         return if(Integer.parseInt("$success") != -1) 0 else 2
     }
-    fun inserProductToDb(name: String, price: Double): Int {
+    fun insertProductToDb(name: String, price: Double): Int {
         val products = readFromProduct
 
         while (products.moveToNext()) {
@@ -58,6 +58,7 @@ class DbManager(context: Context) {
             put(MyDbNameClass.Orders.COLUMN_NAME_ORDER_DATE,order.orderDate)
             put(MyDbNameClass.Orders.COLUMN_NAME_ORDER_CLIENT,order.orderClient)
             put(MyDbNameClass.Orders.COLUMN_NAME_ORDER_AMOUNT,order.amount)
+            put(MyDbNameClass.Orders.COLUMN_NAME_IS_COMPLETED,false)
         }
         val success = db?.insert(MyDbNameClass.Orders.TABLE_NAME_ORDERS,null,values)
         return if(Integer.parseInt("$success") != -1) 0 else 2
@@ -87,7 +88,7 @@ class DbManager(context: Context) {
 //        return Integer.parseInt("$success") != -1
 //    }
     fun updateClient(oldClient: String, newClient: String): Boolean{
-        val success1 = inserClientToDb(newClient)
+        val success1 = insertClientToDb(newClient)
         var success2 = false
         if(success1 == 0){
             success2 = deleteClient(oldClient)
@@ -95,8 +96,8 @@ class DbManager(context: Context) {
         return success2
     }
     fun updateProduct(oldProduct: String, newProduct: Product): Boolean{
-        var success2: Boolean = deleteProduct(oldProduct)
-        val success1 = inserProductToDb(newProduct.name,newProduct.price)
+        val success2: Boolean = deleteProduct(oldProduct)
+        val success1 = insertProductToDb(newProduct.name,newProduct.price)
         return success1 == 0 && success2
     }
 
@@ -118,7 +119,7 @@ class DbManager(context: Context) {
                     " ORDER BY " + MyDbNameClass.Orders.COLUMN_NAME_ORDER_ID + " DESC", null)
             return res
         }
-    val readFromOrderProducts : Cursor
+    private val readFromOrderProducts : Cursor
         get() {
             val res = db!!.rawQuery("SELECT * FROM " + MyDbNameClass.OrderProducts.TABLE_NAME_ORDER_PRODUCTS +
                     " ORDER BY " + MyDbNameClass.OrderProducts.COLUMN_NAME_ORDER_ID + " DESC", null)
@@ -221,8 +222,8 @@ class DbManager(context: Context) {
         return op
     }
     fun getClientOrders(client: String): ArrayList<Order> {
-        var allOrders = readFromOrders
-        var clientOrders = ArrayList<Order>()
+        val allOrders = readFromOrders
+        val clientOrders = ArrayList<Order>()
 
         while (allOrders.moveToNext()) {
             if(allOrders.getString(2) == client) {

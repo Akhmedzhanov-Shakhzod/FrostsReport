@@ -2,7 +2,7 @@ package ordinary.frostsreport.ui.helper.db
 
 
 object MyDbNameClass {
-    const val DATABASE_VERSION = 8
+    const val DATABASE_VERSION = 9
     const val DATABASE_NAME = "FrostsReport.db"
 
 /************************** TABLE CLIENT **********************/
@@ -49,6 +49,7 @@ object MyDbNameClass {
         const val COLUMN_NAME_ORDER_DATE = "order_date"
         const val COLUMN_NAME_ORDER_CLIENT = "order_client"
         const val COLUMN_NAME_ORDER_AMOUNT = "order_amount"
+        const val COLUMN_NAME_IS_COMPLETED = "order_is_completed"
     }
 
     const val SQL_CREATE_ORDERS =
@@ -56,7 +57,8 @@ object MyDbNameClass {
                 "${Orders.COLUMN_NAME_ORDER_ID} INTEGER PRIMARY KEY," +
                 "${Orders.COLUMN_NAME_ORDER_DATE} TEXT," +
                 "${Orders.COLUMN_NAME_ORDER_CLIENT} TEXT," +
-                "${Orders.COLUMN_NAME_ORDER_AMOUNT} REAL)"
+                "${Orders.COLUMN_NAME_ORDER_AMOUNT} REAL," +
+                "${Orders.COLUMN_NAME_IS_COMPLETED} INTEGER)"
 
     const val SQL_DELETE_ORDERS = "DROP TABLE IF EXISTS ${Orders.TABLE_NAME_ORDERS}"
 
@@ -76,6 +78,25 @@ object MyDbNameClass {
                 "${OrderProducts.COLUMN_NAME_PRODUCT_COUNT} REAL)"
 
     const val SQL_DELETE_ORDER_PRODUCTS = "DROP TABLE IF EXISTS ${OrderProducts.TABLE_NAME_ORDER_PRODUCTS}"
+
+/////////////////////////////////////////////////////////////////
+
+/*************************** TABLE SPENDING *********************/
+
+    object Spending {
+        const val TABLE_NAME_SPENDING = "spending"
+        const val COLUMN_NAME_SPENDING_ID = "spending_id"
+        const val COLUMN_NAME_SPENDING_DATE = "spending_date"
+        const val COLUMN_NAME_SPENDING_PRODUCT_ID = "product_id"
+    }
+
+    const val SQL_CREATE_SPENDING =
+        "CREATE TABLE IF NOT EXISTS ${Spending.TABLE_NAME_SPENDING} (" +
+                "${Spending.COLUMN_NAME_SPENDING_ID} INTEGER PRIMARY KEY," +
+                "${Spending.COLUMN_NAME_SPENDING_DATE} TEXT," +
+                "${Spending.COLUMN_NAME_SPENDING_PRODUCT_ID} TEXT)"
+
+    const val SQL_DELETE_SPENDING = "DROP TABLE IF EXISTS ${Spending.TABLE_NAME_SPENDING}"
 
 /////////////////////////////////////////////////////////////////
 }
