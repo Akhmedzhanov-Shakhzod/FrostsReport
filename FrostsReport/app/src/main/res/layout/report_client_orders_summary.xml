@@ -27,7 +27,7 @@
         android:id="@+id/report_order_amount"
         android:layout_width="80dp"
         android:layout_height="match_parent"
-        android:layout_marginLeft="50dp"
+        android:layout_marginStart="50dp"
         android:textSize="16sp"
         android:textColor="@color/black">
 
@@ -36,7 +36,19 @@
         android:id="@+id/report_order_date"
         android:layout_width="150dp"
         android:layout_height="match_parent"
-        android:layout_marginLeft="50dp"
+        android:layout_marginStart="50dp"
+        android:textSize="16sp"
+        android:textColor="@color/black">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/report_order_is_completed"
+        android:layout_width="150dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="-160dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="5dp"
         android:textSize="16sp"
         android:textColor="@color/black">
 

@@ -57,10 +57,14 @@ class ClientsOrdersReportAdapter internal constructor(private val context: Activ
         val report_order_id = conView!!.findViewById<TextView>(R.id.report_order_id)
         val report_order_amount = conView.findViewById<TextView>(R.id.report_order_amount)
         val report_order_date = conView.findViewById<TextView>(R.id.report_order_date)
+        val report_order_is_completed = conView.findViewById<TextView>(R.id.report_order_is_completed)
 
         report_order_id.text = "№" + orderSummary.orderId.toString()
         report_order_amount.text = orderSummary.amount.toString()
         report_order_date.text = orderSummary.orderDate
+
+        if(orderSummary.isCompleted)
+            report_order_is_completed.text = "Выполнено"
 
         return conView
     }

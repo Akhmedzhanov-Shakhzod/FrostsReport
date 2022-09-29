@@ -58,7 +58,7 @@ class DbManager(context: Context) {
             put(MyDbNameClass.Orders.COLUMN_NAME_ORDER_DATE,order.orderDate)
             put(MyDbNameClass.Orders.COLUMN_NAME_ORDER_CLIENT,order.orderClient)
             put(MyDbNameClass.Orders.COLUMN_NAME_ORDER_AMOUNT,order.amount)
-            put(MyDbNameClass.Orders.COLUMN_NAME_IS_COMPLETED,false)
+            put(MyDbNameClass.Orders.COLUMN_NAME_IS_COMPLETED,order.isCompleted)
         }
         val success = db?.insert(MyDbNameClass.Orders.TABLE_NAME_ORDERS,null,values)
         return if(Integer.parseInt("$success") != -1) 0 else 2

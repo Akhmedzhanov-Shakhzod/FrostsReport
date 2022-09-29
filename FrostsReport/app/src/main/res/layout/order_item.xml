@@ -22,6 +22,7 @@
                 android:textColor="@color/black">
 
             </TextView>
+
             <TextView
                 android:id="@+id/order_client_name"
                 android:layout_width="110dp"
@@ -42,7 +43,7 @@
                 android:id="@+id/order_date"
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:textSize="14sp"
                 android:textColor="@color/black">
 
@@ -50,5 +51,16 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/is_completed"
+            android:layout_width="80dp"
+            android:layout_height="20dp"
+            android:layout_below="@+id/order_date"
+            android:layout_alignEnd="@+id/order_date"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="230dp"
+            tools:ignore="NotSibling">
+
+        </TextView>
     </RelativeLayout>
 </LinearLayout>

@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import ordinary.frostsreport.R
 import ordinary.frostsreport.databinding.FragmentReportClientsOrdersBinding
 import ordinary.frostsreport.ui.helper.Common
 import ordinary.frostsreport.ui.helper.MAIN
@@ -30,6 +32,8 @@ class Report : Fragment() {
     private var startDate: Date? = null
     private var endDate: Date? = null
     private var reportAmount: Double = 0.0
+    private var reportAmountCompleted: Double = 0.0
+    private var reportAmountNotCompleted: Double = 0.0
     private val orderSummaryArrayList = ArrayList<Order>()
     private val orderProducts = HashMap<Int,ArrayList<OrderProduct>>()
 
@@ -174,6 +178,9 @@ class Report : Fragment() {
         dbManager.openDb()
 
         val amount = binding?.reportAmount
+        val amount_is_completed = binding?.reportAmountCompleted
+        val amount_is_not_completed = binding?.reportAmountNotCompleted
+
         val orders = dbManager.getClientOrders(arguments?.getString("client_name").toString())
 
         orders.forEach { order ->
@@ -182,12 +189,22 @@ class Report : Fragment() {
                 orderSummaryArrayList.add(order)
                 loadOrderProducts(order.orderId!!)
                 reportAmount += order.amount
+
+                if(order.isCompleted)
+                    reportAmountCompleted += order.amount
+                else
+                    reportAmountNotCompleted += order.amount
             }
             else if(startDate != null && endDate != null){
                 if(orderDate >= startDate && orderDate <= endDate){
                     orderSummaryArrayList.add(order)
                     loadOrderProducts(order.orderId!!)
                     reportAmount += order.amount
+
+                    if(order.isCompleted)
+                        reportAmountCompleted += order.amount
+                    else
+                        reportAmountNotCompleted += order.amount
 
 //                    writeToFile("№${orders.getInt(0)}  ${orders.getString(1)} " +
 //                            "${orders.getString(2)} ${orders.getString(3)}")
@@ -199,6 +216,11 @@ class Report : Fragment() {
                     orderSummaryArrayList.add(order)
                     loadOrderProducts(order.orderId!!)
                     reportAmount += order.amount
+
+                    if(order.isCompleted)
+                        reportAmountCompleted += order.amount
+                    else
+                        reportAmountNotCompleted += order.amount
                 }
             }
             else if (endDate != null){
@@ -206,10 +228,17 @@ class Report : Fragment() {
                     orderSummaryArrayList.add(order)
                     loadOrderProducts(order.orderId!!)
                     reportAmount += order.amount
+
+                    if(order.isCompleted)
+                        reportAmountCompleted += order.amount
+                    else
+                        reportAmountNotCompleted += order.amount
                 }
             }
         }
         amount?.text = reportAmount.toString()
+        amount_is_completed?.text = reportAmountCompleted.toString()
+        amount_is_not_completed?.text = reportAmountNotCompleted.toString()
 
         dbManager.closeDb()
     }

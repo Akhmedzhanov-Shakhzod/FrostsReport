@@ -26,11 +26,14 @@ class OrderAdapter(private val context: Activity, private val order: ArrayList<O
         val order_client: TextView = view.findViewById(R.id.order_client_name)
         val order_date: TextView = view.findViewById(R.id.order_date)
         val order_amount: TextView = view.findViewById(R.id.order_amount)
+        val is_completed: TextView = view.findViewById(R.id.is_completed)
 
         order_id.text = "№" + order[position].orderId.toString()
         order_client.text = order[position].orderClient
         order_date.text = order[position].orderDate
         order_amount.text = order[position].amount.toString()
+        if(order[position].isCompleted)
+            is_completed.text = "Выполнено"
 
         return view
     }
