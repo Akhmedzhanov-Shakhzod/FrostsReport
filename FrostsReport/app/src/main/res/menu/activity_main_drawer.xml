@@ -17,9 +17,17 @@
             android:icon="@drawable/products"
             android:title="@string/menu_products" />
         <item
+            android:id="@+id/nav_not_completed_orders"
+            android:icon="@drawable/orders"
+            android:title="@string/menu_need_complete" />
+        <item
             android:id="@+id/nav_orders"
             android:icon="@drawable/orders"
             android:title="@string/menu_orders" />
+        <item
+            android:id="@+id/nav_expenses"
+            android:icon="@drawable/expenses"
+            android:title="@string/menu_expenses" />
         <item
             android:id="@+id/nav_report"
             android:icon="@drawable/report"

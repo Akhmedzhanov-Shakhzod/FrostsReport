@@ -1,4 +1,4 @@
-package ordinary.frostsreport.ui.orders
+package ordinary.frostsreport.ui.expenses
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog
@@ -8,30 +8,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import ordinary.frostsreport.R
-import ordinary.frostsreport.databinding.FragmentOrdersBinding
+import ordinary.frostsreport.databinding.FragmentExpensesBinding
 import ordinary.frostsreport.ui.helper.MAIN
+import ordinary.frostsreport.ui.helper.adapter.ExpenseAdapter
 import ordinary.frostsreport.ui.helper.adapter.OrderAdapter
 import ordinary.frostsreport.ui.helper.db.DbManager
-import ordinary.frostsreport.ui.helper.items.Order
+import ordinary.frostsreport.ui.helper.items.Expense
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class OrdersFragment : Fragment() {
+class ExpensesFragment : Fragment() {
 
-    private var _binding: FragmentOrdersBinding? = null
+    private var _binding: FragmentExpensesBinding? = null
 
     private val dbManager = DbManager(MAIN)
     private val formatter = SimpleDateFormat("dd/MM/yyyy")
     private var startDate: Date? = null
     private var endDate: Date? = null
 
-    private val orders_arraylist = ArrayList<Order>()
+    private val expenses_arraylist = ArrayList<Expense>()
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -41,7 +38,7 @@ class OrdersFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentOrdersBinding.inflate(inflater, container, false)
+        _binding = FragmentExpensesBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val textStartDate = binding.textStartDate
@@ -58,8 +55,8 @@ class OrdersFragment : Fragment() {
 
         startDate = formatter.parse("$day/${month + 1}/$year") as Date
         endDate = formatter.parse("$day/${month + 1}/$year") as Date
-        textStartDate?.text = "$day/${month + 1}/$year"
-        textEndDate?.text = "$day/${month + 1}/$year"
+        textStartDate.text = "$day/${month + 1}/$year"
+        textEndDate.text = "$day/${month + 1}/$year"
 
         buttonStartDate.setOnClickListener {
             val dpd = DatePickerDialog(
@@ -67,7 +64,7 @@ class OrdersFragment : Fragment() {
                 DatePickerDialog.OnDateSetListener { view, mYear, mMonth, mDay ->
                     textStartDate.text = "$mDay/${mMonth + 1}/$mYear"
                     startDate = formatter.parse(textStartDate.text.toString()) as Date
-                    orders_arraylist.clear()
+                    expenses_arraylist.clear()
                     onViewCreated(root,null)
                 },
                 year,
@@ -83,7 +80,7 @@ class OrdersFragment : Fragment() {
                 DatePickerDialog.OnDateSetListener { view, mYear, mMonth, mDay ->
                     textEndDate.text = "$mDay/${mMonth + 1}/$mYear"
                     endDate = formatter.parse(textEndDate.text.toString()) as Date
-                    orders_arraylist.clear()
+                    expenses_arraylist.clear()
                     onViewCreated(root,null)
                 },
                 year,
@@ -101,67 +98,59 @@ class OrdersFragment : Fragment() {
 
         dbManager.openDb()
 
-        val listViewOrders = binding.listViewOrders
-        val clearOrders = binding.clearOrders
+        val listViewOrders = binding.listViewExpenses
+        val clearExpenses = binding.clearExpenses
 
-        val orders = dbManager.readFromOrders
+        val expenses = dbManager.readFromExpenses
 
-        while (orders.moveToNext()) {
-            val orderDate = formatter.parse(orders.getString(1)) as Date
+        while (expenses.moveToNext()) {
+            val orderDate = formatter.parse(expenses.getString(1)) as Date
             if(startDate == null && endDate == null) {
-                orders_arraylist.add(Order(orders.getString(1),orders.getString(2),
-                    orders.getDouble(3),orders.getInt(0),(orders.getInt(4) == 1)))
+                expenses_arraylist.add(Expense(expenses.getString(1),expenses.getInt(2), expenses.getDouble(3),
+                    expenses.getDouble(4), expenses.getDouble(5), expenses.getInt(0)))
             }
             else if(startDate != null && endDate != null){
                 if(orderDate >= startDate && orderDate <= endDate){
-                    orders_arraylist.add(Order(orders.getString(1),orders.getString(2),
-                        orders.getDouble(3),orders.getInt(0),(orders.getInt(4) == 1)))
+                    expenses_arraylist.add(Expense(expenses.getString(1),expenses.getInt(2), expenses.getDouble(3),
+                        expenses.getDouble(4), expenses.getDouble(5), expenses.getInt(0)))
                 }
             }
             else if (startDate != null){
                 if(orderDate >= startDate){
-                    orders_arraylist.add(Order(orders.getString(1),orders.getString(2),
-                        orders.getDouble(3),orders.getInt(0),(orders.getInt(4) == 1)))
+                    expenses_arraylist.add(Expense(expenses.getString(1),expenses.getInt(2), expenses.getDouble(3),
+                        expenses.getDouble(4), expenses.getDouble(5), expenses.getInt(0)))
                 }
             }
             else if (endDate != null){
                 if(orderDate <= endDate) {
-                    orders_arraylist.add(Order(orders.getString(1),orders.getString(2),
-                        orders.getDouble(3),orders.getInt(0),(orders.getInt(4) == 1)))
+                    expenses_arraylist.add(Expense(expenses.getString(1),expenses.getInt(2), expenses.getDouble(3),
+                        expenses.getDouble(4), expenses.getDouble(5), expenses.getInt(0)))
                 }
             }
         }
 
 
         listViewOrders.isClickable = true
-        listViewOrders.adapter = OrderAdapter(MAIN,orders_arraylist)
+        listViewOrders.adapter = ExpenseAdapter(MAIN,expenses_arraylist)
 
         listViewOrders.setOnItemClickListener { parent, view, position, id ->
             listViewOrders.getItemAtPosition(position)
 
-            val bundle = Bundle()
 
-            orders_arraylist[position].orderId?.let { bundle.putInt("orderId", it) }
-            bundle.putString("clientName",orders_arraylist[position].orderClient)
-            bundle.putFloat("orderAmount", orders_arraylist[position].amount.toFloat())
-            bundle.putString("orderDate",orders_arraylist[position].orderDate)
-            bundle.putBoolean("isCompleted",orders_arraylist[position].isCompleted)
 
-            findNavController().navigate(R.id.orderProductsFragment,bundle)
         }
 
-
-        clearOrders.setOnClickListener {
+        clearExpenses.setOnClickListener {
             val dialogBuilder = AlertDialog.Builder(MAIN)
             // create dialog box
-            dialogBuilder.setMessage("Уверены что хотите удалить все заказы ?!")
+            dialogBuilder.setMessage("Уверены что хотите удалить все записы затрат ?!")
                 .setCancelable(false)
                 // positive button text and action
                 .setPositiveButton("Да", DialogInterface.OnClickListener {
                         dialog, id ->
-                    if(dbManager.clearOrders() && dbManager.clearOrderProducts()) {
+                    if(dbManager.clearExpenses()) {
                         listViewOrders.adapter = null
-                        orders_arraylist.clear()
+                        expenses_arraylist.clear()
                     }
                     else {
                         MAIN.alert("Что-то пошло не так :(")
@@ -182,7 +171,7 @@ class OrdersFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        orders_arraylist.clear()
+        expenses_arraylist.clear()
         dbManager.closeDb()
     }
 }

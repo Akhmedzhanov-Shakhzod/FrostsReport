@@ -59,6 +59,8 @@ class DbManager(context: Context) {
             put(MyDbNameClass.Orders.COLUMN_NAME_ORDER_CLIENT,order.orderClient)
             put(MyDbNameClass.Orders.COLUMN_NAME_ORDER_AMOUNT,order.amount)
             put(MyDbNameClass.Orders.COLUMN_NAME_IS_COMPLETED,order.isCompleted)
+            put(MyDbNameClass.Orders.COLUMN_NAME_IS_REPORTED,order.isReported)
+            put(MyDbNameClass.Orders.COLUMN_NAME_REPORT_ID,order.reportId)
         }
         val success = db?.insert(MyDbNameClass.Orders.TABLE_NAME_ORDERS,null,values)
         return if(Integer.parseInt("$success") != -1) 0 else 2
@@ -100,23 +102,34 @@ class DbManager(context: Context) {
         val success1 = insertProductToDb(newProduct.name,newProduct.price)
         return success1 == 0 && success2
     }
+    fun updateOrder(oldOrder: Int, newOrder: Order): Boolean{
+        val success2: Boolean = deleteOrders(oldOrder)
+        val success1 = insertOrderToDb(newOrder)
+        return success1 == 0 && success2
+    }
 
     val readFromClient : Cursor
-    get() {
-        val res = db!!.rawQuery("SELECT * FROM " + MyDbNameClass.Client.TABLE_NAME_CLIENT +
-                " ORDER BY " + MyDbNameClass.Client.COLUMN_NAME_CLIENT_NAME, null)
-        return res
-    }
+        get() {
+            val res = db!!.rawQuery("SELECT * FROM " + MyDbNameClass.Client.TABLE_NAME_CLIENT +
+                    " ORDER BY " + MyDbNameClass.Client.COLUMN_NAME_CLIENT_NAME, null)
+            return res
+        }
     val readFromProduct : Cursor
-    get() {
-        val res = db!!.rawQuery("SELECT * FROM " + MyDbNameClass.Product.TABLE_NAME_PRODUCT +
-                " ORDER BY " + MyDbNameClass.Product.COLUMN_NAME_PRODUCT_NAME, null)
-        return res
-    }
+        get() {
+            val res = db!!.rawQuery("SELECT * FROM " + MyDbNameClass.Product.TABLE_NAME_PRODUCT +
+                    " ORDER BY " + MyDbNameClass.Product.COLUMN_NAME_PRODUCT_NAME, null)
+            return res
+        }
     val readFromOrders : Cursor
         get() {
             val res = db!!.rawQuery("SELECT * FROM " + MyDbNameClass.Orders.TABLE_NAME_ORDERS +
                     " ORDER BY " + MyDbNameClass.Orders.COLUMN_NAME_ORDER_ID + " DESC", null)
+            return res
+        }
+    val readFromExpenses : Cursor
+        get() {
+            val res = db!!.rawQuery("SELECT * FROM " + MyDbNameClass.Spending.TABLE_NAME_SPENDING +
+                    " ORDER BY " + MyDbNameClass.Spending.COLUMN_NAME_SPENDING_ID + " DESC", null)
             return res
         }
     private val readFromOrderProducts : Cursor
@@ -159,6 +172,15 @@ class DbManager(context: Context) {
         }
         return -1
     }
+    fun getProduct(productId: Int): Product {
+        val products = readFromProduct
+
+        while (products.moveToNext()) {
+            if(products.getInt(0) == productId)
+                    return Product(products.getString(1), products.getDouble(2))
+        }
+        return Product("",0.0)
+    }
     fun getOrderProductsId(orderProduct: OrederProducts): Int {
         val orderProducts = readFromOrderProducts
 
@@ -195,6 +217,10 @@ class DbManager(context: Context) {
     }
     fun clearOrderProducts(): Boolean {
         val success = db!!.delete(MyDbNameClass.OrderProducts.TABLE_NAME_ORDER_PRODUCTS, null,null)
+        return Integer.parseInt("$success") != -1
+    }
+    fun clearExpenses(): Boolean {
+        val success = db!!.delete(MyDbNameClass.Spending.TABLE_NAME_SPENDING, null,null)
         return Integer.parseInt("$success") != -1
     }
 

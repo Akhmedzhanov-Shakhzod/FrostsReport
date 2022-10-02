@@ -17,6 +17,7 @@
         <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/layout/clients_grid_view.xml" value="0.24895833333333334" />
         <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/layout/content_main.xml" value="0.25" />
         <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/layout/content_scrolling.xml" value="0.17346014492753623" />
+        <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/layout/expenses_item.xml" value="0.2" />
         <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/layout/fragment_add_client.xml" value="0.17346014492753623" />
         <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/layout/fragment_add_order.xml" value="0.264" />
         <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/layout/fragment_add_order_chose_clients.xml" value="0.25" />
@@ -25,8 +26,10 @@
         <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/layout/fragment_blank_client.xml" value="0.22826086956521738" />
         <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/layout/fragment_blank_product.xml" value="0.264" />
         <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/layout/fragment_clients.xml" value="0.1" />
+        <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/layout/fragment_expenses.xml" value="0.115625" />
         <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/layout/fragment_gallery.xml" value="0.10989583333333333" />
         <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/layout/fragment_home.xml" value="0.10989583333333333" />
+        <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/layout/fragment_not_completed_orders.xml" value="0.2269021739130435" />
         <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/layout/fragment_order_products.xml" value="0.2269021739130435" />
         <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/layout/fragment_orders.xml" value="0.2" />
         <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/layout/fragment_product_count_blank.xml" value="0.264" />
@@ -37,6 +40,7 @@
         <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/layout/fragment_scrolling.xml" value="0.10989583333333333" />
         <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/layout/fragment_slideshow.xml" value="0.10989583333333333" />
         <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/layout/nav_header_main.xml" value="0.10989583333333333" />
+        <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/layout/not_completed_order_item.xml" value="0.2269021739130435" />
         <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/layout/order_item.xml" value="0.22826086956521738" />
         <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/layout/order_product_item.xml" value="0.2269021739130435" />
         <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/layout/product_item.xml" value="0.22826086956521738" />
@@ -44,6 +48,7 @@
         <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/layout/report_order_products.xml" value="0.2269021739130435" />
         <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/layout/report_order_summary.xml" value="0.2269021739130435" />
         <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/layout/snackbar.xml" value="0.17346014492753623" />
+        <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/layout/switches.xml" value="0.2269021739130435" />
         <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/menu/activity_main_drawer.xml" value="0.264" />
         <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/menu/main.xml" value="0.10989583333333333" />
         <entry key="..\:/Data/SomeThings/FrostsReport/FrostsReport/app/src/main/res/menu/menu_clients.xml" value="0.25" />

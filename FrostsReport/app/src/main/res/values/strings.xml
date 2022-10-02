@@ -13,6 +13,8 @@
     <string name="menu_clients">Магазины</string>
     <string name="menu_products">Продукты</string>
     <string name="menu_orders">Заказы</string>
+    <string name="menu_expenses">Затраты</string>
+    <string name="menu_need_complete">Нужно выполнить</string>
     <string name="name">Название</string>
     <string name="price">Цена</string>
     <string name="count">Количество</string>

@@ -1,3 +1,4 @@
 package ordinary.frostsreport.ui.helper.items
 
-data class Order(var orderDate: String, var orderClient: String, var amount:Double, var orderId: Int? = null, var isCompleted:Boolean = false)
+data class Order(var orderDate: String, var orderClient: String, var amount:Double, var orderId: Int? = null,
+                 var isCompleted:Boolean = false, var isReported:Boolean = false, var reportId:Int? = null )

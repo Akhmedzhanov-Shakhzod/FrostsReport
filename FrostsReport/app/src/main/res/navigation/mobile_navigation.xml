@@ -126,10 +126,16 @@
         android:name="ordinary.frostsreport.ui.orders.OrderProductsFragment"
         android:label="@string/menu_orders"
         tools:layout="@layout/fragment_order_products" >
-        <argument android:name="orderId" />
-        <argument android:name="clientName" />
-        <argument android:name="orderAmount" />
-        <argument android:name="orderDate" />
+        <argument android:name="orderId"
+            app:argType="integer" />
+        <argument android:name="clientName"
+            app:argType="string" />
+        <argument android:name="orderAmount"
+            app:argType="float" />
+        <argument android:name="orderDate"
+            app:argType="string" />
+        <argument android:name="isCompleted"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/nav_report"
@@ -143,5 +149,18 @@
         tools:layout="@layout/fragment_report_clients_orders" >
         <argument android:name="client_name" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_not_completed_orders"
+        android:name="ordinary.frostsreport.ui.orders.NotCompletedOrdersFragment"
+        android:label="@string/menu_need_complete"
+        tools:layout="@layout/fragment_not_completed_orders" />
+    <fragment
+        android:id="@+id/nav_expenses"
+        android:name="ordinary.frostsreport.ui.expenses.ExpensesFragment"
+        android:label="@string/menu_expenses"
+        tools:layout="@layout/fragment_expenses" >
+
+    </fragment>
+
 
 </navigation>

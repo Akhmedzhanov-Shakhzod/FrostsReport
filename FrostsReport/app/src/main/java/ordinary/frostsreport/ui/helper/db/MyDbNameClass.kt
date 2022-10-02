@@ -2,7 +2,7 @@ package ordinary.frostsreport.ui.helper.db
 
 
 object MyDbNameClass {
-    const val DATABASE_VERSION = 9
+    const val DATABASE_VERSION = 11
     const val DATABASE_NAME = "FrostsReport.db"
 
 /************************** TABLE CLIENT **********************/
@@ -50,6 +50,8 @@ object MyDbNameClass {
         const val COLUMN_NAME_ORDER_CLIENT = "order_client"
         const val COLUMN_NAME_ORDER_AMOUNT = "order_amount"
         const val COLUMN_NAME_IS_COMPLETED = "order_is_completed"
+        const val COLUMN_NAME_IS_REPORTED = "order_is_reported"
+        const val COLUMN_NAME_REPORT_ID = "order_report_id"
     }
 
     const val SQL_CREATE_ORDERS =
@@ -58,7 +60,9 @@ object MyDbNameClass {
                 "${Orders.COLUMN_NAME_ORDER_DATE} TEXT," +
                 "${Orders.COLUMN_NAME_ORDER_CLIENT} TEXT," +
                 "${Orders.COLUMN_NAME_ORDER_AMOUNT} REAL," +
-                "${Orders.COLUMN_NAME_IS_COMPLETED} INTEGER)"
+                "${Orders.COLUMN_NAME_IS_COMPLETED} INTEGER," +
+                "${Orders.COLUMN_NAME_IS_REPORTED} INTEGER," +
+                "${Orders.COLUMN_NAME_REPORT_ID} INTEGER)"
 
     const val SQL_DELETE_ORDERS = "DROP TABLE IF EXISTS ${Orders.TABLE_NAME_ORDERS}"
 
@@ -88,13 +92,19 @@ object MyDbNameClass {
         const val COLUMN_NAME_SPENDING_ID = "spending_id"
         const val COLUMN_NAME_SPENDING_DATE = "spending_date"
         const val COLUMN_NAME_SPENDING_PRODUCT_ID = "product_id"
+        const val COLUMN_NAME_SPENDING_AMOUNT = "spending_amount"
+        const val COLUMN_NAME_SPENDING_PRODUCT_COUNT = "spending_product_count"
+        const val COLUMN_NAME_SPENDING_PRODUCT_PRICE = "spending_product_price"
     }
 
     const val SQL_CREATE_SPENDING =
         "CREATE TABLE IF NOT EXISTS ${Spending.TABLE_NAME_SPENDING} (" +
                 "${Spending.COLUMN_NAME_SPENDING_ID} INTEGER PRIMARY KEY," +
                 "${Spending.COLUMN_NAME_SPENDING_DATE} TEXT," +
-                "${Spending.COLUMN_NAME_SPENDING_PRODUCT_ID} TEXT)"
+                "${Spending.COLUMN_NAME_SPENDING_PRODUCT_ID} INTEGER," +
+                "${Spending.COLUMN_NAME_SPENDING_AMOUNT} REAL," +
+                "${Spending.COLUMN_NAME_SPENDING_PRODUCT_COUNT} REAL," +
+                "${Spending.COLUMN_NAME_SPENDING_PRODUCT_PRICE} REAL)"
 
     const val SQL_DELETE_SPENDING = "DROP TABLE IF EXISTS ${Spending.TABLE_NAME_SPENDING}"
 

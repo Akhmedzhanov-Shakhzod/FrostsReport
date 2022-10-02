@@ -46,7 +46,8 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_add_order, R.id.nav_clients, R.id.nav_products, R.id.nav_orders, R.id.nav_report
+                R.id.nav_add_order, R.id.nav_clients, R.id.nav_products, R.id.nav_orders,
+                R.id.nav_report, R.id.nav_not_completed_orders, R.id.nav_expenses
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -77,6 +78,9 @@ class MainActivity : AppCompatActivity() {
     }
     fun onClickAddProduct(view:View){
         navController.navigate(R.id.action_nav_products_to_addProductFragment)
+    }
+    fun onClickAddExpense(view:View){
+        //navController.navigate(R.id.)
     }
     fun onClient(){
         navController.navigate(R.id.action_blankClientFragment_to_nav_clients)
