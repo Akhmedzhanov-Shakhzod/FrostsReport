@@ -55,6 +55,7 @@ class DbManager(context: Context) {
             }
         }
         val values = ContentValues().apply {
+            put(MyDbNameClass.Orders.COLUMN_NAME_ORDER_ID,order.orderId)
             put(MyDbNameClass.Orders.COLUMN_NAME_ORDER_DATE,order.orderDate)
             put(MyDbNameClass.Orders.COLUMN_NAME_ORDER_CLIENT,order.orderClient)
             put(MyDbNameClass.Orders.COLUMN_NAME_ORDER_AMOUNT,order.amount)
@@ -79,6 +80,24 @@ class DbManager(context: Context) {
             put(MyDbNameClass.OrderProducts.COLUMN_NAME_PRODUCT_COUNT,orderProduct.productCount)
         }
         val success = db?.insert(MyDbNameClass.OrderProducts.TABLE_NAME_ORDER_PRODUCTS,null,values)
+        return if(Integer.parseInt("$success") != -1) 0 else 2
+    }
+    fun insertExpenseToDb(expense: Expense): Int {
+        val expenses = readFromExpenses
+
+        while (expenses.moveToNext()) {
+            if(expenses.getString(0).toInt() == expense.spendingId){
+                return 1
+            }
+        }
+        val values = ContentValues().apply {
+            put(MyDbNameClass.Spending.COLUMN_NAME_SPENDING_DATE,expense.spendingDate)
+            put(MyDbNameClass.Spending.COLUMN_NAME_SPENDING_PRODUCT_ID,expense.productId)
+            put(MyDbNameClass.Spending.COLUMN_NAME_SPENDING_AMOUNT,expense.spendingAmount)
+            put(MyDbNameClass.Spending.COLUMN_NAME_SPENDING_PRODUCT_COUNT,expense.productCount)
+            put(MyDbNameClass.Spending.COLUMN_NAME_SPENDING_PRODUCT_PRICE,expense.productPrice)
+        }
+        val success = db?.insert(MyDbNameClass.Spending.TABLE_NAME_SPENDING,null,values)
         return if(Integer.parseInt("$success") != -1) 0 else 2
     }
 
@@ -123,7 +142,7 @@ class DbManager(context: Context) {
     val readFromOrders : Cursor
         get() {
             val res = db!!.rawQuery("SELECT * FROM " + MyDbNameClass.Orders.TABLE_NAME_ORDERS +
-                    " ORDER BY " + MyDbNameClass.Orders.COLUMN_NAME_ORDER_ID + " DESC", null)
+                    " ORDER BY " + MyDbNameClass.Orders.COLUMN_NAME_IS_COMPLETED + "," + MyDbNameClass.Orders.COLUMN_NAME_ORDER_ID + " DESC", null)
             return res
         }
     val readFromExpenses : Cursor

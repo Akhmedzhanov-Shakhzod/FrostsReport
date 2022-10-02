@@ -96,7 +96,7 @@
         android:id="@+id/choseProductsFragment"
         android:name="ordinary.frostsreport.ui.addOrder.ChoseProductsFragment"
         android:label="@string/add_product"
-        tools:layout="@layout/fragment_add_order_chose_products">>
+        tools:layout="@layout/fragment_add_order_chose_products">
         <action
             android:id="@+id/action_choseProductsFragment_to_productCountBlankFragment"
             app:destination="@id/productCountBlankFragment" />
@@ -138,9 +138,9 @@
             app:argType="boolean" />
     </fragment>
     <fragment
-        android:id="@+id/nav_report"
+        android:id="@+id/nav_report_orders"
         android:name="ordinary.frostsreport.Report"
-        android:label="@string/report"
+        android:label="@string/reportOrders"
         tools:layout="@layout/fragment_report" />
     <fragment
         android:id="@+id/report_clients_orders"
@@ -160,7 +160,15 @@
         android:label="@string/menu_expenses"
         tools:layout="@layout/fragment_expenses" >
 
+        <action
+            android:id="@+id/action_nav_expenses_to_addExpensesFragment"
+            app:destination="@id/addExpensesFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/addExpensesFragment"
+        android:name="ordinary.frostsreport.ui.expenses.AddExpensesFragment"
+        android:label="@string/menu_expenses"
+        tools:layout="@layout/fragment_add_expenses" />
 
 
 </navigation>

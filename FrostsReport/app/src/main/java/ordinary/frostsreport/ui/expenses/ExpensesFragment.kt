@@ -99,7 +99,7 @@ class ExpensesFragment : Fragment() {
         dbManager.openDb()
 
         val listViewOrders = binding.listViewExpenses
-        val clearExpenses = binding.clearExpenses
+        //val clearExpenses = binding.clearExpenses
 
         val expenses = dbManager.readFromExpenses
 
@@ -140,32 +140,32 @@ class ExpensesFragment : Fragment() {
 
         }
 
-        clearExpenses.setOnClickListener {
-            val dialogBuilder = AlertDialog.Builder(MAIN)
-            // create dialog box
-            dialogBuilder.setMessage("Уверены что хотите удалить все записы затрат ?!")
-                .setCancelable(false)
-                // positive button text and action
-                .setPositiveButton("Да", DialogInterface.OnClickListener {
-                        dialog, id ->
-                    if(dbManager.clearExpenses()) {
-                        listViewOrders.adapter = null
-                        expenses_arraylist.clear()
-                    }
-                    else {
-                        MAIN.alert("Что-то пошло не так :(")
-                        dialog.cancel()
-                    }
-                })
-                // negative button text and action
-                .setNegativeButton("Отменить", DialogInterface.OnClickListener {
-                        dialog, id -> dialog.cancel()
-                })
-            val alert = dialogBuilder.create()
-            // show alert dialog
-            alert.show()
-            //alert.cancel()
-        }
+//        clearExpenses.setOnClickListener {
+//            val dialogBuilder = AlertDialog.Builder(MAIN)
+//            // create dialog box
+//            dialogBuilder.setMessage("Уверены что хотите удалить все записы затрат ?!")
+//                .setCancelable(false)
+//                // positive button text and action
+//                .setPositiveButton("Да", DialogInterface.OnClickListener {
+//                        dialog, id ->
+//                    if(dbManager.clearExpenses()) {
+//                        listViewOrders.adapter = null
+//                        expenses_arraylist.clear()
+//                    }
+//                    else {
+//                        MAIN.alert("Что-то пошло не так :(")
+//                        dialog.cancel()
+//                    }
+//                })
+//                // negative button text and action
+//                .setNegativeButton("Отменить", DialogInterface.OnClickListener {
+//                        dialog, id -> dialog.cancel()
+//                })
+//            val alert = dialogBuilder.create()
+//            // show alert dialog
+//            alert.show()
+//            //alert.cancel()
+//        }
     }
 
     override fun onDestroyView() {

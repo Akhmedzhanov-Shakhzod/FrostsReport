@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_add_order, R.id.nav_clients, R.id.nav_products, R.id.nav_orders,
-                R.id.nav_report, R.id.nav_not_completed_orders, R.id.nav_expenses
+                R.id.nav_report, R.id.nav_not_completed_orders, R.id.nav_expenses, R.id.nav_report_orders
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
         navController.navigate(R.id.action_nav_products_to_addProductFragment)
     }
     fun onClickAddExpense(view:View){
-        //navController.navigate(R.id.)
+        navController.navigate(R.id.action_nav_expenses_to_addExpensesFragment)
     }
     fun onClient(){
         navController.navigate(R.id.action_blankClientFragment_to_nav_clients)

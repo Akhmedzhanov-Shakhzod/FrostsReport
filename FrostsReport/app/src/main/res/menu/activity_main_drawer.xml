@@ -29,6 +29,10 @@
             android:icon="@drawable/expenses"
             android:title="@string/menu_expenses" />
         <item
+            android:id="@+id/nav_report_orders"
+            android:icon="@drawable/report"
+            android:title="@string/reportOrders" />
+        <item
             android:id="@+id/nav_report"
             android:icon="@drawable/report"
             android:title="@string/report" />
