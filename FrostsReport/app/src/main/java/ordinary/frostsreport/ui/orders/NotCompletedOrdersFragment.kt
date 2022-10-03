@@ -49,7 +49,7 @@ class NotCompletedOrdersFragment : Fragment() {
                     Order(
                         orders.getString(1), orders.getString(2),
                         orders.getDouble(3), orders.getInt(0),
-                        (orders.getInt(4) == 1)
+                        orders.getInt(4) == 1,orders.getInt(5) == 1
                     )
                 )
             }
@@ -68,6 +68,7 @@ class NotCompletedOrdersFragment : Fragment() {
             bundle.putFloat("orderAmount", orders_arraylist[position].amount.toFloat())
             bundle.putString("orderDate",orders_arraylist[position].orderDate)
             bundle.putBoolean("isCompleted",orders_arraylist[position].isCompleted)
+            bundle.putBoolean("isReported",orders_arraylist[position].isReported)
 
             findNavController().navigate(R.id.orderProductsFragment,bundle)
         }

@@ -110,24 +110,24 @@ class OrdersFragment : Fragment() {
             val orderDate = formatter.parse(orders.getString(1)) as Date
             if(startDate == null && endDate == null) {
                 orders_arraylist.add(Order(orders.getString(1),orders.getString(2),
-                    orders.getDouble(3),orders.getInt(0),(orders.getInt(4) == 1)))
+                    orders.getDouble(3),orders.getInt(0),orders.getInt(4) == 1,orders.getInt(5) == 1))
             }
             else if(startDate != null && endDate != null){
                 if(orderDate >= startDate && orderDate <= endDate){
                     orders_arraylist.add(Order(orders.getString(1),orders.getString(2),
-                        orders.getDouble(3),orders.getInt(0),(orders.getInt(4) == 1)))
+                        orders.getDouble(3),orders.getInt(0),orders.getInt(4) == 1,orders.getInt(5) == 1))
                 }
             }
             else if (startDate != null){
                 if(orderDate >= startDate){
                     orders_arraylist.add(Order(orders.getString(1),orders.getString(2),
-                        orders.getDouble(3),orders.getInt(0),(orders.getInt(4) == 1)))
+                        orders.getDouble(3),orders.getInt(0),orders.getInt(4) == 1,orders.getInt(5) == 1))
                 }
             }
             else if (endDate != null){
                 if(orderDate <= endDate) {
                     orders_arraylist.add(Order(orders.getString(1),orders.getString(2),
-                        orders.getDouble(3),orders.getInt(0),(orders.getInt(4) == 1)))
+                        orders.getDouble(3),orders.getInt(0),orders.getInt(4) == 1,orders.getInt(5) == 1))
                 }
             }
         }
@@ -146,6 +146,7 @@ class OrdersFragment : Fragment() {
             bundle.putFloat("orderAmount", orders_arraylist[position].amount.toFloat())
             bundle.putString("orderDate",orders_arraylist[position].orderDate)
             bundle.putBoolean("isCompleted",orders_arraylist[position].isCompleted)
+            bundle.putBoolean("isReported",orders_arraylist[position].isReported)
 
             findNavController().navigate(R.id.orderProductsFragment,bundle)
         }

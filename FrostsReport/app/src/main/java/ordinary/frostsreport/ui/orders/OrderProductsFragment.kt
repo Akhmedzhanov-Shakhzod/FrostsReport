@@ -49,7 +49,8 @@ class OrderProductsFragment : Fragment() {
             arguments?.getString("clientName").toString(),
             arguments?.getFloat("orderAmount")!!.toDouble(),
             arguments?.getInt("orderId"),
-            arguments?.getBoolean("isCompleted") == true
+            arguments?.getBoolean("isCompleted") == true,
+            arguments?.getBoolean("isReported") == true
         )
 
         orderId.text = "№" + order.orderId.toString()
