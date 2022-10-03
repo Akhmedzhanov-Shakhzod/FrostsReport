@@ -3,8 +3,6 @@ package ordinary.frostsreport.ui.expenses
 import android.app.DatePickerDialog
 import android.icu.util.Calendar
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +13,7 @@ import ordinary.frostsreport.ui.helper.adapter.AddExpenseAdapter
 import ordinary.frostsreport.ui.helper.db.DbManager
 import ordinary.frostsreport.ui.helper.items.Expense
 import ordinary.frostsreport.ui.helper.items.Order
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -22,6 +21,7 @@ class AddExpensesFragment : Fragment() {
 
     private var _binding: FragmentAddExpensesBinding? = null
     private val dbManager = DbManager(MAIN)
+    private val formatter = SimpleDateFormat("dd/MM/yyyy")
     private val expenses_arraylist = ArrayList<Expense>()
     private var isSwitch = false
 
@@ -88,36 +88,32 @@ class AddExpensesFragment : Fragment() {
     }
 
     private fun loadList(){
-        var dateString = binding.textDate.text.toString()
-        if(dateString[1] == '/') dateString = "0$dateString"
-        if(dateString[4] == '/') dateString = "${dateString.take(3)}0${dateString.takeLast(6)}"
-        val date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+        val date = formatter.parse(binding.textDate.text.toString())
         val addExpenses = binding.addExpenses
 
         val orders = dbManager.readFromOrders
 
         while (orders.moveToNext()){
-            var dateOrderString = orders.getString(1)
-            if(dateOrderString[1] == '/') dateOrderString = "0$dateOrderString"
-            if(dateOrderString[4] == '/') dateOrderString = "${dateOrderString.take(3)}0${dateOrderString.takeLast(6)}"
-            val dateOrder = LocalDate.parse(dateOrderString, DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+            val dateOrder = formatter.parse(orders.getString(1))
 
-            if(orders.getInt(5) == 0 &&
+            if (dateOrder != null) {
+                if(orders.getInt(5) == 0 &&
                     if(isSwitch) dateOrder <= date else dateOrder == date){
-                val products = dbManager.getOrderProducts(orders.getInt(0))
+                    val products = dbManager.getOrderProducts(orders.getInt(0))
 
-                products.forEach { productOrder ->
-                    val productId = dbManager.getProductId(productOrder.product)
-                    var isNotExist = true
-                    expenses_arraylist.forEach { expense ->
-                        if(expense.productId == productId){
-                            expense.productCount += productOrder.productCount
-                            isNotExist = false
+                    products.forEach { productOrder ->
+                        val productId = dbManager.getProductId(productOrder.product)
+                        var isNotExist = true
+                        expenses_arraylist.forEach { expense ->
+                            if(expense.productId == productId){
+                                expense.productCount += productOrder.productCount
+                                isNotExist = false
+                            }
                         }
-                    }
-                    if(isNotExist){
-                        expenses_arraylist.add(Expense(date.toString(),productId,0.0,
-                            productOrder.productCount,productOrder.product.price))
+                        if(isNotExist){
+                            expenses_arraylist.add(Expense(orders.getString(1),productId,0.0,
+                                productOrder.productCount,productOrder.product.price))
+                        }
                     }
                 }
             }
@@ -125,29 +121,33 @@ class AddExpensesFragment : Fragment() {
 
         binding.listViewExpenses.adapter = AddExpenseAdapter(MAIN, expenses_arraylist)
 
+        var success = false
         addExpenses.setOnClickListener {
             for(position in 0 until binding.listViewExpenses.adapter.count){
                 val expense = binding.listViewExpenses.adapter.getItem(position)
-                if (dbManager.insertExpenseToDb(expense as Expense) != 0){
-                    MAIN.alert("Что-то пошло не так :(", 1000)
-                }
+                if (dbManager.insertExpenseToDb(expense as Expense) != 0)   MAIN.alert("Что-то пошло не так :(", 1000)
+                else success = true
             }
 
-            val orders = dbManager.readFromOrders
-            while (orders.moveToNext()){
-                var dateOrderString = orders.getString(1)
-                if(dateOrderString[1] == '/') dateOrderString = "0$dateOrderString"
-                if(dateOrderString[4] == '/') dateOrderString = "${dateOrderString.take(3)}0${dateOrderString.takeLast(6)}"
-                val dateOrder = LocalDate.parse(dateOrderString, DateTimeFormatter.ofPattern("dd/MM/yyyy"))
-                if(orders.getInt(5) == 0 &&
-                    if(isSwitch) dateOrder <= date else dateOrder == date){
-                    val order = Order(orders.getString(1), orders.getString(2), orders.getDouble(3),orders.getInt(0),
-                        orders.getInt(4) == 1,orders.getInt(5) == 1,orders.getInt(6))
+            if (success){
+                val orders = dbManager.readFromOrders
+                while (orders.moveToNext()){
+                    val dateOrder = formatter.parse(orders.getString(1))
 
-                    order.isReported = true
-                    dbManager.updateOrder(order.orderId!!,order)
+                    if (dateOrder != null) {
+                        if(orders.getInt(5) == 0 &&
+                            if(isSwitch) dateOrder <= date else dateOrder == date){
+                            val order = Order(orders.getString(1), orders.getString(2), orders.getDouble(3),orders.getInt(0),
+                                orders.getInt(4) == 1,orders.getInt(5) == 1,orders.getInt(6))
+
+                            order.isReported = true
+                            success = dbManager.updateOrder(order.orderId!!,order)
+                        }
+                    }
                 }
+
             }
+            if(success)    MAIN.onExpense()
         }
     }
 }

@@ -88,6 +88,9 @@ class MainActivity : AppCompatActivity() {
     fun onProduct(){
         navController.navigate(R.id.action_blankProductFragment_to_nav_products)
     }
+    fun onExpense(){
+        navController.navigate(R.id.action_addExpensesFragment_to_nav_expenses)
+    }
     ///////////////////////////////////////////////////////////////////////////////////////
     fun alert(text:String, delay:Long = 500){
     val dialogBuilder = AlertDialog.Builder(this)

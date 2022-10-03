@@ -168,7 +168,16 @@
         android:id="@+id/addExpensesFragment"
         android:name="ordinary.frostsreport.ui.expenses.AddExpensesFragment"
         android:label="@string/menu_expenses"
-        tools:layout="@layout/fragment_add_expenses" />
+        tools:layout="@layout/fragment_add_expenses" >
+        <action
+            android:id="@+id/action_addExpensesFragment_to_nav_expenses"
+            app:destination="@id/nav_expenses" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_report"
+        android:name="ordinary.frostsreport.ReportExpenses"
+        android:label="@string/report"
+        tools:layout="@layout/fragment_expenses_report" />
 
 
 </navigation>

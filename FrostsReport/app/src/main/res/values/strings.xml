@@ -19,6 +19,8 @@
     <string name="price">Цена</string>
     <string name="count">Количество</string>
     <string name="amount">Сумма</string>
+    <string name="amount_sale">Продажы</string>
+    <string name="profit">Прибыль</string>
     <string name="completed">Выполнено</string>
     <string name="notCompleted">Осталось</string>
     <string name="add">Добавить</string>
