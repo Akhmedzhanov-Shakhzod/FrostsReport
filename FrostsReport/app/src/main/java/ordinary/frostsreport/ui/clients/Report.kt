@@ -72,6 +72,8 @@ class Report : Fragment() {
                     orderSummaryArrayList.clear()
                     orderProducts.clear()
                     reportAmount = 0.0
+                    reportAmountCompleted = 0.0
+                    reportAmountNotCompleted = 0.0
                     onViewCreated(binding?.root as View,null)
                 },
                 year,
@@ -90,6 +92,8 @@ class Report : Fragment() {
                     orderSummaryArrayList.clear()
                     orderProducts.clear()
                     reportAmount = 0.0
+                    reportAmountCompleted = 0.0
+                    reportAmountNotCompleted = 0.0
                     onViewCreated(binding?.root as View,null)
                 },
                 year,
@@ -143,6 +147,8 @@ class Report : Fragment() {
                         orderSummaryArrayList.clear()
                         orderProducts.clear()
                         reportAmount = 0.0
+                        reportAmountCompleted = 0.0
+                        reportAmountNotCompleted = 0.0
                         binding?.reportAmount?.text = reportAmount.toString()
                         eListView?.setAdapter(ClientsOrdersReportAdapter(MAIN,orderSummaryArrayList,orderProducts))
                     }
@@ -173,6 +179,8 @@ class Report : Fragment() {
         orderSummaryArrayList.clear()
         orderProducts.clear()
         reportAmount = 0.0
+        reportAmountCompleted = 0.0
+        reportAmountNotCompleted = 0.0
     }
     private fun showList() {
         dbManager.openDb()

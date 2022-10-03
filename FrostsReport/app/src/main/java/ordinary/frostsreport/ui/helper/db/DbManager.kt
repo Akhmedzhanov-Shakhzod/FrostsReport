@@ -272,7 +272,8 @@ class DbManager(context: Context) {
 
         while (allOrders.moveToNext()) {
             if(allOrders.getString(2) == client) {
-                clientOrders.add(Order(allOrders.getString(1),client,allOrders.getDouble(3),allOrders.getInt(0)))
+                clientOrders.add(Order(allOrders.getString(1),allOrders.getString(2),
+                    allOrders.getDouble(3),allOrders.getInt(0),(allOrders.getInt(4) == 1)))
             }
         }
         return  clientOrders
