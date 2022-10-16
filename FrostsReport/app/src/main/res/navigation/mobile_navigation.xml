@@ -5,179 +5,187 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/nav_add_order">
 
-    <fragment
-        android:id="@+id/nav_add_order"
-        android:name="ordinary.frostsreport.ui.addOrder.AddOrderFragment"
-        android:label="@string/menu_add_order"
-        tools:layout="@layout/fragment_add_order" >
-        <action
-            android:id="@+id/action_nav_add_order_to_choseClientFragment"
-            app:destination="@id/choseClientFragment" />
-        <action
-            android:id="@+id/action_nav_add_order_to_choseProductsFragment"
-            app:destination="@id/choseProductsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/nav_products"
-        android:name="ordinary.frostsreport.ui.products.ProductsFragment"
-        android:label="@string/menu_products"
-        tools:layout="@layout/fragment_products" >
-        <action
-            android:id="@+id/action_nav_products_to_addProductFragment"
-            app:destination="@id/nav_add_product" />
-    </fragment>
-    <fragment
-        android:id="@+id/nav_orders"
-        android:name="ordinary.frostsreport.ui.orders.OrdersFragment"
-        android:label="@string/menu_orders"
-        tools:layout="@layout/fragment_orders" >
-        <action
-            android:id="@+id/action_nav_orders_to_nav_add_order"
-            app:destination="@id/nav_add_order" />
-        <action
-            android:id="@+id/action_nav_orders_to_orderProductsFragment"
-            app:destination="@id/orderProductsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/nav_add_client"
-        android:name="ordinary.frostsreport.ui.addClient.AddClientFragment"
-        android:label="@string/menu_add_client"
-        tools:layout="@layout/fragment_add_client" />
-    <fragment
-        android:id="@+id/nav_add_product"
-        android:name="ordinary.frostsreport.ui.addProduct.AddProductFragment"
-        android:label="@string/menu_add_product"
-        tools:layout="@layout/fragment_add_product" />
-    <fragment
-        android:id="@+id/nav_clients"
-        android:name="ordinary.frostsreport.ui.clients.ClientsFragment"
-        android:label="@string/menu_clients"
-        tools:layout="@layout/fragment_clients" >
-        <action
-            android:id="@+id/action_nav_clients_to_nav_add_client"
-            app:destination="@id/nav_add_client" />
-        <action
-            android:id="@+id/action_nav_clients_to_report"
-            app:destination="@id/report_clients_orders" />
-    </fragment>
-    <fragment
-        android:id="@+id/blankProductFragment"
-        android:name="ordinary.frostsreport.BlankProductFragment"
-        android:label="@string/menu_products"
-        tools:layout="@layout/fragment_blank_product">
-        <argument
-            android:name="product_id"
-            android:defaultValue="ID" />
-        <argument
-            android:name="product_name"
-            android:defaultValue="Название" />
-        <argument
-            android:name="product_price"
-            android:defaultValue="Цена" />
-        <action
-            android:id="@+id/action_blankProductFragment_to_nav_products"
-            app:destination="@id/nav_products" />
-    </fragment>
-    <fragment
-        android:id="@+id/blankClientFragment"
-        android:name="ordinary.frostsreport.BlankClientFragment"
-        android:label="@string/menu_clients"
-        tools:layout="@layout/fragment_blank_client" >
-        <action
-            android:id="@+id/action_blankClientFragment_to_nav_clients"
-            app:destination="@id/nav_clients" />
-    </fragment>
-    <fragment
-        android:id="@+id/choseClientFragment"
-        android:name="ordinary.frostsreport.ui.addOrder.ChoseClientFragment"
-        android:label="@string/chose_shop"
-        tools:layout="@layout/fragment_add_order_chose_clients" />
-    <fragment
-        android:id="@+id/choseProductsFragment"
-        android:name="ordinary.frostsreport.ui.addOrder.ChoseProductsFragment"
-        android:label="@string/add_product"
-        tools:layout="@layout/fragment_add_order_chose_products">
-        <action
-            android:id="@+id/action_choseProductsFragment_to_productCountBlankFragment"
-            app:destination="@id/productCountBlankFragment" />
-        <action
-            android:id="@+id/action_choseProductsFragment_to_productFromAddOrderBlankFragment"
-            app:destination="@id/productFromAddOrderBlankFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/productCountBlankFragment"
-        android:name="ordinary.frostsreport.ui.addOrder.ProductCountBlankFragment"
-        android:label="Укажите количество"
-        tools:layout="@layout/fragment_product_count_blank" >
-        <argument android:name="product_name" />
-        <argument android:name="product_price" />
-    </fragment>
-    <fragment
-        android:id="@+id/productFromAddOrderBlankFragment"
-        android:name="ordinary.frostsreport.ui.addOrder.ProductFromAddOrderBlankFragment"
-        android:label="Редактировать"
-        tools:layout="@layout/fragment_product_from_add_order_blank" >
-        <argument android:name="product_price" />
-        <argument android:name="product_name" />
-        <argument android:name="product_count" />
-    </fragment>
-    <fragment
-        android:id="@+id/orderProductsFragment"
-        android:name="ordinary.frostsreport.ui.orders.OrderProductsFragment"
-        android:label="@string/menu_orders"
-        tools:layout="@layout/fragment_order_products" >
-        <argument android:name="orderId"
-            app:argType="integer" />
-        <argument android:name="clientName"
-            app:argType="string" />
-        <argument android:name="orderAmount"
-            app:argType="float" />
-        <argument android:name="orderDate"
-            app:argType="string" />
-        <argument android:name="isCompleted"
-            app:argType="boolean" />
-    </fragment>
-    <fragment
-        android:id="@+id/nav_report_orders"
-        android:name="ordinary.frostsreport.Report"
-        android:label="@string/reportOrders"
-        tools:layout="@layout/fragment_report" />
-    <fragment
-        android:id="@+id/report_clients_orders"
-        android:name="ordinary.frostsreport.ui.clients.Report"
-        android:label="@string/menu_clients"
-        tools:layout="@layout/fragment_report_clients_orders" >
-        <argument android:name="client_name" />
-    </fragment>
-    <fragment
-        android:id="@+id/nav_not_completed_orders"
-        android:name="ordinary.frostsreport.ui.orders.NotCompletedOrdersFragment"
-        android:label="@string/menu_need_complete"
-        tools:layout="@layout/fragment_not_completed_orders" />
-    <fragment
-        android:id="@+id/nav_expenses"
-        android:name="ordinary.frostsreport.ui.expenses.ExpensesFragment"
-        android:label="@string/menu_expenses"
-        tools:layout="@layout/fragment_expenses" >
+    <navigation android:id="@+id/navigation"
+        app:startDestination="@id/nav_add_product">
+        <fragment
+            android:id="@+id/nav_add_product"
+            android:name="ordinary.frostsreport.ui.addProduct.AddProductFragment"
+            android:label="@string/menu_add_product"
+            tools:layout="@layout/fragment_add_product" />
+        <fragment
+            android:id="@+id/nav_add_client"
+            android:name="ordinary.frostsreport.ui.addClient.AddClientFragment"
+            android:label="@string/menu_add_client"
+            tools:layout="@layout/fragment_add_client" />
+        <fragment
+            android:id="@+id/nav_products"
+            android:name="ordinary.frostsreport.ui.products.ProductsFragment"
+            android:label="@string/menu_products"
+            tools:layout="@layout/fragment_products">
+            <action
+                android:id="@+id/action_nav_products_to_addProductFragment"
+                app:destination="@id/nav_add_product" />
+        </fragment>
+        <fragment
+            android:id="@+id/blankProductFragment"
+            android:name="ordinary.frostsreport.BlankProductFragment"
+            android:label="@string/menu_products"
+            tools:layout="@layout/fragment_blank_product">
+            <argument
+                android:name="product_id"
+                android:defaultValue="ID" />
+            <argument
+                android:name="product_name"
+                android:defaultValue="Название" />
+            <argument
+                android:name="product_price"
+                android:defaultValue="Цена" />
+            <action
+                android:id="@+id/action_blankProductFragment_to_nav_products"
+                app:destination="@id/nav_products" />
+        </fragment>
+        <fragment
+            android:id="@+id/nav_report"
+            android:name="ordinary.frostsreport.ReportExpenses"
+            android:label="@string/report"
+            tools:layout="@layout/fragment_expenses_report" />
+        <fragment
+            android:id="@+id/productFromAddOrderBlankFragment"
+            android:name="ordinary.frostsreport.ui.addOrder.ProductFromAddOrderBlankFragment"
+            android:label="Редактировать"
+            tools:layout="@layout/fragment_product_from_add_order_blank">
+            <argument android:name="product_price" />
+            <argument android:name="product_name" />
+            <argument android:name="product_count" />
+        </fragment>
+        <fragment
+            android:id="@+id/nav_expenses"
+            android:name="ordinary.frostsreport.ui.expenses.ExpensesFragment"
+            android:label="@string/menu_expenses"
+            tools:layout="@layout/fragment_expenses">
 
-        <action
-            android:id="@+id/action_nav_expenses_to_addExpensesFragment"
-            app:destination="@id/addExpensesFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/addExpensesFragment"
-        android:name="ordinary.frostsreport.ui.expenses.AddExpensesFragment"
-        android:label="@string/menu_expenses"
-        tools:layout="@layout/fragment_add_expenses" >
-        <action
-            android:id="@+id/action_addExpensesFragment_to_nav_expenses"
-            app:destination="@id/nav_expenses" />
-    </fragment>
-    <fragment
-        android:id="@+id/nav_report"
-        android:name="ordinary.frostsreport.ReportExpenses"
-        android:label="@string/report"
-        tools:layout="@layout/fragment_expenses_report" />
+            <action
+                android:id="@+id/action_nav_expenses_to_addExpensesFragment"
+                app:destination="@id/addExpensesFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/nav_clients"
+            android:name="ordinary.frostsreport.ui.clients.ClientsFragment"
+            android:label="@string/menu_clients"
+            tools:layout="@layout/fragment_clients">
+            <action
+                android:id="@+id/action_nav_clients_to_nav_add_client"
+                app:destination="@id/nav_add_client" />
+            <action
+                android:id="@+id/action_nav_clients_to_report"
+                app:destination="@id/report_clients_orders" />
+        </fragment>
+        <fragment
+            android:id="@+id/choseClientFragment"
+            android:name="ordinary.frostsreport.ui.addOrder.ChoseClientFragment"
+            android:label="@string/chose_shop"
+            tools:layout="@layout/fragment_add_order_chose_clients" />
+        <fragment
+            android:id="@+id/nav_report_orders"
+            android:name="ordinary.frostsreport.Report"
+            android:label="@string/reportOrders"
+            tools:layout="@layout/fragment_report" />
+        <fragment
+            android:id="@+id/orderProductsFragment"
+            android:name="ordinary.frostsreport.ui.orders.OrderProductsFragment"
+            android:label="@string/menu_orders"
+            tools:layout="@layout/fragment_order_products">
+            <argument
+                android:name="orderId"
+                app:argType="integer" />
+            <argument
+                android:name="clientName"
+                app:argType="string" />
+            <argument
+                android:name="orderAmount"
+                app:argType="float" />
+            <argument
+                android:name="orderDate"
+                app:argType="string" />
+            <argument
+                android:name="isCompleted"
+                app:argType="boolean" />
+        </fragment>
+        <fragment
+            android:id="@+id/report_clients_orders"
+            android:name="ordinary.frostsreport.ui.clients.Report"
+            android:label="@string/menu_clients"
+            tools:layout="@layout/fragment_report_clients_orders">
+            <argument android:name="client_name" />
+        </fragment>
+        <fragment
+            android:id="@+id/nav_add_order"
+            android:name="ordinary.frostsreport.ui.addOrder.AddOrderFragment"
+            android:label="@string/menu_add_order"
+            tools:layout="@layout/fragment_add_order">
+            <action
+                android:id="@+id/action_nav_add_order_to_choseClientFragment"
+                app:destination="@id/choseClientFragment" />
+            <action
+                android:id="@+id/action_nav_add_order_to_choseProductsFragment"
+                app:destination="@id/choseProductsFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/nav_not_completed_orders"
+            android:name="ordinary.frostsreport.ui.orders.NotCompletedOrdersFragment"
+            android:label="@string/menu_need_complete"
+            tools:layout="@layout/fragment_not_completed_orders" />
+        <fragment
+            android:id="@+id/productCountBlankFragment"
+            android:name="ordinary.frostsreport.ui.addOrder.ProductCountBlankFragment"
+            android:label="Укажите количество"
+            tools:layout="@layout/fragment_product_count_blank">
+            <argument android:name="product_name" />
+            <argument android:name="product_price" />
+        </fragment>
+        <fragment
+            android:id="@+id/nav_orders"
+            android:name="ordinary.frostsreport.ui.orders.OrdersFragment"
+            android:label="@string/menu_orders"
+            tools:layout="@layout/fragment_orders">
+            <action
+                android:id="@+id/action_nav_orders_to_nav_add_order"
+                app:destination="@id/nav_add_order" />
+            <action
+                android:id="@+id/action_nav_orders_to_orderProductsFragment"
+                app:destination="@id/orderProductsFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/blankClientFragment"
+            android:name="ordinary.frostsreport.BlankClientFragment"
+            android:label="@string/menu_clients"
+            tools:layout="@layout/fragment_blank_client">
+            <action
+                android:id="@+id/action_blankClientFragment_to_nav_clients"
+                app:destination="@id/nav_clients" />
+        </fragment>
+        <fragment
+            android:id="@+id/addExpensesFragment"
+            android:name="ordinary.frostsreport.ui.expenses.AddExpensesFragment"
+            android:label="@string/menu_expenses"
+            tools:layout="@layout/fragment_add_expenses">
+            <action
+                android:id="@+id/action_addExpensesFragment_to_nav_expenses"
+                app:destination="@id/nav_expenses" />
+        </fragment>
+        <fragment
+            android:id="@+id/choseProductsFragment"
+            android:name="ordinary.frostsreport.ui.addOrder.ChoseProductsFragment"
+            android:label="@string/add_product"
+            tools:layout="@layout/fragment_add_order_chose_products">
+            <action
+                android:id="@+id/action_choseProductsFragment_to_productCountBlankFragment"
+                app:destination="@id/productCountBlankFragment" />
+            <action
+                android:id="@+id/action_choseProductsFragment_to_productFromAddOrderBlankFragment"
+                app:destination="@id/productFromAddOrderBlankFragment" />
+        </fragment>
+    </navigation>
 
 
 </navigation>
